@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="TSN">
+  <ClassDiagramComponents>
+    <Class name="Place" package="" visibility="public" xPosition="323.0" yPosition="184.0">
+      <Fields>
+        <Field name="tokens" type="ArrayList&lt;Token&gt;" visibility="private"/>
+        <Field name="Colour_type" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="Place" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Node" package="" visibility="public" isAbstract="true" xPosition="128.0" yPosition="19.0">
+      <Fields>
+        <Field name="previous" type="HashMap&lt;ArcToken&gt;" visibility="private"/>
+        <Field name="next" type="HashMap&lt;ArcToken&gt;" visibility="private"/>
+        <Field name="name" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Transition" package="" visibility="public" xPosition="23.0" yPosition="184.0">
+      <Fields>
+        <Field name="g" type="Guard" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="Transition" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="NormalArc" package="" visibility="public" xPosition="339.0" yPosition="662.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="NormalArc" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Inhibitor" package="" visibility="public" xPosition="23.0" yPosition="662.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="Inhibitor" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="WNTranslator" package="" visibility="public" xPosition="357.0" yPosition="522.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="XMLScanner" package="" visibility="public" xPosition="816.0" yPosition="27.0">
+      <Fields>
+        <Field name="xmlFile" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="scan_places" returnType="ArrayList&lt;String[]&gt;" visibility="public"/>
+        <Method name="scan_transitions" returnType="ArrayList&lt;String[]&gt;" visibility="public"/>
+        <Method name="scan_arcs" returnType="ArrayList&lt;String[]&gt;" visibility="public"/>
+        <Method name="scan_colourClasses" returnType="ArrayList&lt;String[]&gt;" visibility="public"/>
+        <Method name="scan_domains" returnType="ArrayList&lt;String[]&gt;" visibility="public"/>
+        <Method name="scan_variables" returnType="ArrayList&lt;String[]&gt;" visibility="public"/>
+        <Method name="XMLScanner" returnType="String" visibility="public">
+          <Argument type="String" name="file"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DataParser" package="" visibility="public" xPosition="849.0" yPosition="262.0">
+      <Fields>
+        <Field name="wn" type="WN" visibility="private"/>
+        <Field name="xmlsc" type="XMLScanner" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="add_place" returnType="void" visibility="public"/>
+        <Method name="add_transition" returnType="void" visibility="public"/>
+        <Method name="add_colourClass" returnType="void" visibility="public"/>
+        <Method name="add_domain" returnType="void" visibility="public"/>
+        <Method name="add_variable" returnType="void" visibility="public"/>
+        <Method name="connect_nodes_via_arcs" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="WN" package="" visibility="public" xPosition="870.0" yPosition="539.0">
+      <Fields>
+        <Field name="P" type="ArrayList&lt;place&gt;" visibility="private" isStatic="true"/>
+        <Field name="T" type="ArrayList&lt;transition&gt;" visibility="private" isStatic="true"/>
+        <Field name="C" type="ArrayList&lt;ColourClass&gt;" visibility="private" isStatic="true"/>
+        <Field name="DC" type="ArrayList&lt;Domain&gt;" visibility="private" isStatic="true"/>
+        <Field name="V" type="ArrayList&lt;Variable&gt;" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="add_place" returnType="Place" visibility="public">
+          <Argument type="Place" name="p"/>
+        </Method>
+        <Method name="add_transition" returnType="Transition" visibility="public">
+          <Argument type="Transition" name="t"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Marking" package="" visibility="public" xPosition="554.0" yPosition="628.0">
+      <Fields>
+        <Field name="InitialMarking" type="HashMap&lt;PlaceToken&gt;" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="Marking" returnType="void" visibility="public"/>
+        <Method name="add_initial_marking" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ColourClass" package="" visibility="public" xPosition="554.0" yPosition="19.0">
+      <Fields>
+        <Field name="colour_name" type="String" visibility="private"/>
+        <Field name="available_tokens" type="Token[]" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="ColourClass" returnType="void" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="add_available_token" returnType="void" visibility="public">
+          <Argument type="Token" name="t"/>
+        </Method>
+        <Method name="get_colour_name" returnType="String" visibility="public"/>
+        <Method name="is_available" returnType="boolean" visibility="public">
+          <Argument type="Token" name="t"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Variable" package="" visibility="public" xPosition="539.0" yPosition="252.0">
+      <Fields>
+        <Field name="variable_name" type="String" visibility="private"/>
+        <Field name="colour_type" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="Variable" returnType="void" visibility="public">
+          <Argument type="String" name="name"/>
+          <Argument type="String" name="type"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Domain" package="" visibility="public" xPosition="567.0" yPosition="409.0">
+      <Fields>
+        <Field name="colour_names" type="String[]" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="add_colour_name" returnType="void" visibility="public"/>
+        <Method name="get_colour_index" returnType="int" visibility="public">
+          <Argument type="String" name="colour"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Arc" package="" visibility="public" isAbstract="true" xPosition="181.0" yPosition="522.0">
+      <Fields>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="level" type="int" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Token" package="" visibility="public" xPosition="323.0" yPosition="337.0">
+      <Fields>
+        <Field name="name" type="String" visibility="private"/>
+        <Field name="type" type="ColourClass" visibility="private"/>
+        <Field name="Place" type="Object" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="Token" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Guard" package="" visibility="public" xPosition="23.0" yPosition="337.0">
+      <Fields>
+        <Field name="operation" type="String" visibility="private"/>
+        <Field name="left" type="Variable" visibility="private"/>
+        <Field name="right" type="Variable" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="Guard" returnType="void" visibility="public"/>
+        <Method name="Is_soddisfied" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations/>
+</ClassDiagram>
