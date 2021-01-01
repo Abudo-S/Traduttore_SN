@@ -5,10 +5,29 @@
  */
 package struttura_sn;
 
+import java.util.HashMap;
+import java.util.Set;
+
 /**
  *
  * @author dell
  */
 public class Marking {
+    private HashMap<Place, Token[]> marking;
     
+    public Marking(){
+        this.marking = new HashMap<>();
+    }
+    
+    public void mark_place(Place p, Token[] tokens){
+        this.marking.put(p, tokens);
+    }
+    
+    public Set get_all_marked_Places(){
+        return this.marking.keySet();
+    }
+    
+    public Token[] get_marking_of_place(Place p){
+        return this.marking.get(p);
+    }
 }

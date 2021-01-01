@@ -5,10 +5,19 @@
  */
 package struttura_sn;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author dell
  */
-public class NormalArc {
+public class TArc extends Arc{
+    
+    public TArc(String name, int lvl, Guard g){
+        this.name = name;
+        this.level = lvl;
+        this.guard = g;
+        this.ExVars= new ArrayList<>();
+    }
     
 }

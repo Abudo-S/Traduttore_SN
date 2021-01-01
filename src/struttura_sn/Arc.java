@@ -5,10 +5,21 @@
  */
 package struttura_sn;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author dell
  */
 public abstract class Arc {
+    
+    protected String name;
+    protected int level;
+    protected ArrayList<Variable> ExVars;
+    protected Guard guard;
+    
+    public void add_expressionVar(Variable v){
+        this.ExVars.add(v);
+    }
     
 }

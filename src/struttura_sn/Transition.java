@@ -5,10 +5,36 @@
  */
 package struttura_sn;
 
+import java.util.HashMap;
+
 /**
  *
  * @author dell
  */
-public class Transition {
+public class Transition extends Node{
     
+    public Transition(String name){
+        this.name = name;
+        this.Next = new HashMap();
+        this.previous = new HashMap();
+    }
+    
+    //next/previous node of a transition is a place
+    //next arc of a transition is a transitioning arc
+    public void add_next_Node(TArc arc, Place p){
+        this.Next.put(arc, p);
+    }
+    
+    //previous arc of a transition might be an inhibitor or a transitioning arc
+    public void add_previous_Node(Arc arc, Place p){
+        this.previous.put(arc, p);
+    }
+    
+    public Node get_next_by_Arc(TArc arc){
+        return this.Next.get(arc);
+    }
+    
+    public Node get_previous_by_Arc(Arc arc){
+        return this.previous.get(arc);
+    }
 }
