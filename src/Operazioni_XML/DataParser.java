@@ -10,5 +10,7 @@ package Operazioni_XML;
  * @author dell
  */
 public class DataParser {
+    // predicate regex
+    //[(]*([_a-zA-Z]+[_a-zA-Z0-9]*)\s*(<=|>=|<|>|=|!\s*=|\s+in\s+|\s*!\s*in\s+)\s*([_a-zA-Z]+[_a-zA-Z0-9]*)[)]*
     
 }

@@ -13,20 +13,24 @@ import java.util.ArrayList;
  */
 public class Guard {
     
-    private ArrayList<String> predicates;
+    private ArrayList<Predicate> predicates;
     private ArrayList<String> seperationTypes; //contains: and , or
     
-    Guard(){
+    public Guard(){
         this.predicates = new ArrayList<>();
         this.seperationTypes = new ArrayList<>();
     }
     
     
     public boolean is_satisfied(){
+        if(this.predicates.isEmpty()){
+            return true;
+        }
+        
         return false;
     }
     
-    public void add_predicate(String pd){
+    public void add_predicate(Predicate pd){
         this.predicates.add(pd);
     }
     
@@ -34,8 +38,11 @@ public class Guard {
         this.seperationTypes.add(type);
     }
     
-    public boolean satisfy_predicate(Variable v1, Variable v2){
+    private boolean satisfy_predicate(Variable v1,String operation, Variable v2){
         return false;
     }
     
+    private boolean satisfy_predicate(Variable v1, String operation, ColourClass c){
+        return false;
+    }
 }

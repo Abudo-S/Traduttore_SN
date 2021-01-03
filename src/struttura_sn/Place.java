@@ -13,11 +13,13 @@ import java.util.HashMap;
  */
 public class Place extends Node{
     
+    private final ColourClass colour_type;
     
-    public Place(String name){
+    public Place(String name, ColourClass type){
         this.name = name;
         this.Next = new HashMap();
         this.previous = new HashMap();
+        this.colour_type = type;
     }
     
     //next/previous node of a place is a transition
@@ -37,5 +39,9 @@ public class Place extends Node{
     
     public Node get_previous_by_Arc(TArc arc){
         return this.previous.get(arc);
+    }
+    
+    public ColourClass get_ColourClass_type(){
+        return this.colour_type;
     }
 }

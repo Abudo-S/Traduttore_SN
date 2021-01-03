@@ -13,10 +13,13 @@ import java.util.HashMap;
  */
 public class Transition extends Node{
     
-    public Transition(String name){
+    private final Guard guard;
+    
+    public Transition(String name, Guard g){
         this.name = name;
         this.Next = new HashMap();
         this.previous = new HashMap();
+        this.guard = g;
     }
     
     //next/previous node of a transition is a place
@@ -36,5 +39,9 @@ public class Transition extends Node{
     
     public Node get_previous_by_Arc(Arc arc){
         return this.previous.get(arc);
+    }
+    
+    public Guard get_guard(){
+        return this.guard;
     }
 }

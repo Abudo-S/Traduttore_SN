@@ -11,19 +11,19 @@ package struttura_sn;
  */
 public class Token {
     
-    private final String name;
+    private final String value;
     private ColourClass class_type = null;
     private Domain domain_type = null;
     private Place current_place;
     
     //can't be token of colour domain and colour class at the same time
-    public Token(String name, ColourClass type){
-        this.name = name;
+    public Token(String value, ColourClass type){
+        this.value = value;
         this.class_type = type;
     }
     
-    public Token(String name, Domain type){
-        this.name = name;
+    public Token(String value, Domain type){
+        this.value = value;
         this.domain_type = type;
     }
     
@@ -31,8 +31,8 @@ public class Token {
         return (this.class_type == null) ? this.domain_type : this.class_type;
     }
     
-    public String get_name(){
-        return this.name;
+    public String get_Token_value(){
+        return this.value;
     }
     
     public Place current_place(){

@@ -13,16 +13,16 @@ import java.util.Arrays;
  */
 public class Domain {
     
-    private final String[] ColourClass_names;
+    private final ColourClass[] ColourClasses;
     private final String name;
     
-    public Domain(String name, String[] classes){
+    public Domain(String name, ColourClass[] classes){
         this.name = name;
-        this.ColourClass_names = classes;
+        this.ColourClasses = classes;
     }
     
-    public int get_colour_index(String colour){
-        return Arrays.binarySearch(this.ColourClass_names, colour);
+    public int get_colour_index(ColourClass colour){
+        return Arrays.binarySearch(this.ColourClasses, colour); // returns -1 if isn't found
     }
     
     public String get_name(){
