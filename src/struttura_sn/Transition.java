@@ -17,8 +17,8 @@ public class Transition extends Node{
     
     public Transition(String name, Guard g){
         this.name = name;
-        this.Next = new HashMap();
-        this.previous = new HashMap();
+        this.Next = new HashMap<>();
+        this.previous = new HashMap<>();
         this.guard = g;
     }
     
@@ -44,4 +44,9 @@ public class Transition extends Node{
     public Guard get_guard(){
         return this.guard;
     }
+    
+    /*public boolean is_enabled(){
+        return false;
+    }*/
+
 }

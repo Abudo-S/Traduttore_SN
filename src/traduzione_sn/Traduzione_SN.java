@@ -5,6 +5,9 @@
  */
 package traduzione_sn;
 
+import java.util.Arrays;
+import struttura_sn.*;
+
 /**
  *
  * @author dell
@@ -16,6 +19,7 @@ public class Traduzione_SN {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+
     }
     
 }

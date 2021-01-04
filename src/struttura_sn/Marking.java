@@ -23,7 +23,7 @@ public class Marking {
         this.marking.put(p, tokens);
     }
     
-    public Set get_all_marked_Places(){
+    public Set<Place> get_all_marked_Places(){
         return this.marking.keySet();
     }
     

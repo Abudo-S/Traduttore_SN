@@ -17,6 +17,7 @@ public abstract class Arc {
     protected int level;
     protected ArrayList<Variable> ExVars;
     protected Guard guard;
+    protected int multiplicity;
     
     public void add_expressionVar(Variable v){
         this.ExVars.add(v);

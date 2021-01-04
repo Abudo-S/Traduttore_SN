@@ -16,9 +16,10 @@ public class ColourClass {
    private final String ColourClass_name;
    private final Token[] available_tokens;
    
-   public ColourClass(String name, Token[] available_tokens){
+   public ColourClass(String name, String[] available_token_values){
        this.ColourClass_name = name;
-       this.available_tokens = available_tokens;
+       this.available_tokens = new Token[available_token_values.length];
+       this.create_available_tokens(available_token_values);
    }
    
    public String get_colour_name(){
@@ -27,6 +28,12 @@ public class ColourClass {
    
    public boolean is_available(Token t){
        return Arrays.binarySearch(available_tokens, t) >= 0;
+   }
+   
+   private void create_available_tokens(String[] values){
+       for(var i=0; i<values.length; i++){
+           this.available_tokens[i] = new Token(values[i], this);
+       }
    }
     
 }

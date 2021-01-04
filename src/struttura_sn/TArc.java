@@ -13,11 +13,12 @@ import java.util.ArrayList;
  */
 public class TArc extends Arc{
     
-    public TArc(String name, int lvl, Guard g){
+    public TArc(String name, int lvl, Guard g, int mult){
         this.name = name;
         this.level = lvl;
         this.guard = g;
         this.ExVars= new ArrayList<>();
+        this.multiplicity = mult;
     }
     
 }

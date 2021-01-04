@@ -12,10 +12,10 @@ package struttura_sn;
 public class Variable {
     
     private final String variable_name;
-    private final String colour_type;
+    private final ColourClass colour_type;
     private Token current_assignment;
     
-    public Variable(String variable_name, String colour_type){
+    public Variable(String variable_name, ColourClass colour_type){
         this.variable_name = variable_name;
         this.colour_type = colour_type;
     }
@@ -24,7 +24,7 @@ public class Variable {
         return this.variable_name;
     }
     
-    public String get_colour_type(){
+    public ColourClass get_colourClass(){
         return this.colour_type;
     }
     

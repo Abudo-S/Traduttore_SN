@@ -15,19 +15,35 @@ public class Guard {
     
     private ArrayList<Predicate> predicates;
     private ArrayList<String> seperationTypes; //contains: and , or
+    private final boolean invert_result;
     
-    public Guard(){
+    public Guard(boolean not){
         this.predicates = new ArrayList<>();
         this.seperationTypes = new ArrayList<>();
+        this.invert_result = not;
     }
     
     
     public boolean is_satisfied(){
+        boolean sat = true;
+        
         if(this.predicates.isEmpty()){
             return true;
         }
-        
-        return false;
+        if(this.predicates.size() == 1){
+            return this.predicates.get(0).is_satisfied() && this.invert_result;
+        }
+        for(var i=0; i<this.seperationTypes.size(); i++){
+            Predicate p1 = this.predicates.get(i);
+            Predicate p2 = this.predicates.get(i+1);
+                
+            if(this.seperationTypes.get(i).equals("and")){ //&&
+                sat = sat && (p1.is_satisfied() && p2.is_satisfied());                
+            }else{ //or
+                sat = sat && (p1.is_satisfied() || p2.is_satisfied());
+            }
+        }
+        return sat && this.invert_result;
     }
     
     public void add_predicate(Predicate pd){
@@ -38,11 +54,4 @@ public class Guard {
         this.seperationTypes.add(type);
     }
     
-    private boolean satisfy_predicate(Variable v1,String operation, Variable v2){
-        return false;
-    }
-    
-    private boolean satisfy_predicate(Variable v1, String operation, ColourClass c){
-        return false;
-    }
 }

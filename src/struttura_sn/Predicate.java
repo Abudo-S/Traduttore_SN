@@ -16,14 +16,12 @@ public class Predicate {
     private Variable v2 = null;
     private ColourClass c = null;
     private final boolean invert_result;
-    private final SN sn;
     
     public Predicate(Variable v1, String op, Variable v2, boolean not){
         this.v1 = v1;
         this.operation = op;
         this.v2 = v2;
         this.invert_result = not;
-        this.sn = new SN();
     }
     
     public Predicate(Variable v1, String op, ColourClass c, boolean not){
@@ -31,9 +29,9 @@ public class Predicate {
         this.operation = op;
         this.c = c;
         this.invert_result = not;
-        this.sn = new SN();
     }    
     public boolean is_satisfied(){
+        boolean sat = false;
         int v2_com = 0;
         
         if(this.v2 != null){
@@ -44,38 +42,39 @@ public class Predicate {
         switch(this.operation){
             case ">":
                 if(v2_com == 1){
-                    return true;
+                    sat = true;
                 }
             case "<":
                 if(v2_com == -1){
-                    return true;
+                    sat = true;
                 }
             case ">=":
                 if(v2_com == 1 || v2_com == 0){
-                    return true;
+                    sat = true;
                 }
             case "<=":
                 if(v2_com == -1 || v2_com == 0){
-                    return true;
+                    sat = true;
                 }
             case "=":
                 if(v2_com == 0){
-                    return true;
+                    sat = true;
                 }
             case "!=":
                 if(v2_com != 0 ){
-                    return true;
+                    sat = true;
                 }
             case "in":
                 if(this.c.is_available(this.v1.get_current_assignment())){
-                    return true;
+                    sat = true;
                 }     
             case "!in":
                 if(!this.c.is_available(this.v1.get_current_assignment())){
-                    return true;
+                    sat = true;
                 }
         }
-        return false;
+        
+        return sat && this.invert_result;
     }
     
     

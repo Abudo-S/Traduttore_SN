@@ -6,6 +6,7 @@
 package struttura_sn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -21,7 +22,7 @@ public class SN {
     private static Marking m0;
     
     public SN(){
-       
+       SN.C.add(new ColourClass("Neutral", null)); // black tokens
     }
     
     public void add_place(Place p){
@@ -100,6 +101,31 @@ public class SN {
     
     public Marking get_initial_marking(){
         return SN.m0;
+    }
+    
+    public void SN_all_data(){
+        try{
+            System.out.println("ColourClasses:");
+            SN.C.stream().forEach(x -> System.out.println(x.get_colour_name())); 
+            
+            System.out.println("Domains:");
+            SN.DC.stream().forEach(x -> System.out.println(x.get_name()));
+            
+            System.out.println("Variables:");
+            SN.V.stream().forEach(x -> System.out.println(x.get_name()));
+            
+            System.out.println("Places:");
+            SN.P.stream().forEach(x -> System.out.println(x.get_name()));
+            
+            System.out.println("Transitions:");
+            SN.T.stream().forEach(x -> System.out.println(x.get_name()));
+            
+            System.out.println("initial Marking:");        
+            SN.m0.get_all_marked_Places().stream().forEach(x -> System.out.println(x.get_name()));
+            
+        }catch(Exception e){
+            System.out.println(e + " in SN");
+        }
     }
     
 }

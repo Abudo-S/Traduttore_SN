@@ -17,18 +17,18 @@ public abstract class Node {
     protected HashMap<Arc,Node> previous;
     protected String name;
     
-    public void add_next_Node(Arc arc, Node n){}
-    public void add_previous_Node(Arc arc, Node n){}
+    /*public void add_next_Node(Arc arc, Node n){}
+    public void add_previous_Node(Arc arc, Node n){}*/
     
     public String get_name(){
         return this.name;
     }
     
-    public HashMap get_next_nodes(){
+    public HashMap<Arc, Node> get_next_nodes(){
         return this.Next;
     }
     
-    public HashMap get_previous_nodes(){
+    public HashMap<Arc, Node> get_previous_nodes(){
         return this.previous;
     }
     

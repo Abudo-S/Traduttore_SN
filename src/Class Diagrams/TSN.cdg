@@ -2,19 +2,25 @@
 
 <ClassDiagram name="TSN">
   <ClassDiagramComponents>
-    <Class name="Place" package="" visibility="public" xPosition="545.0" yPosition="346.0">
+    <Class name="Place" package="" visibility="public" xPosition="630.0" yPosition="363.0">
       <Fields>
         <Field name="Colour_type" type="ColourClass" visibility="private"/>
+        <Field name="domain_type" type="Domain" visibility="private"/>
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="Place" returnType="ColourClass" visibility="public">
+        <Method name="Place" returnType="void" visibility="public">
           <Argument type="String" name="name"/>
           <Argument type="ColourClass" name="type"/>
         </Method>
+        <Method name="Place" returnType="void" visibility="public">
+          <Argument type="String" name="name"/>
+          <Argument type="Domain" name="type"/>
+        </Method>
+        <Method name="get_type" returnType="Object" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Node" package="" visibility="public" isAbstract="true" xPosition="567.0" yPosition="121.0">
+    <Class name="Node" package="" visibility="public" isAbstract="true" xPosition="605.0" yPosition="117.0">
       <Fields>
         <Field name="previous" type="HashMap&lt;ArcNode&gt;" visibility="private"/>
         <Field name="next" type="HashMap&lt;ArcNode&gt;" visibility="private"/>
@@ -32,7 +38,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Transition" package="" visibility="public" xPosition="179.0" yPosition="405.0">
+    <Class name="Transition" package="" visibility="public" xPosition="175.0" yPosition="447.0">
       <Fields>
         <Field name="guard" type="Guard" visibility="private"/>
       </Fields>
@@ -52,10 +58,11 @@
           <Argument type="String" name="name"/>
           <Argument type="int" name="lvl"/>
           <Argument type="Guard" name="g"/>
+          <Argument type="int" name="mult"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Inhibitor" package="" visibility="public" xPosition="308.0" yPosition="8.0">
+    <Class name="Inhibitor" package="" visibility="public" xPosition="387.0" yPosition="8.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -63,6 +70,7 @@
           <Argument type="String" name="name"/>
           <Argument type="int" name="lvl"/>
           <Argument type="Guard" name="g"/>
+          <Argument type="int" name="mult"/>
         </Method>
       </Methods>
     </Class>
@@ -90,7 +98,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="DataParser" package="" visibility="public" xPosition="925.0" yPosition="-10.0">
+    <Class name="DataParser" package="" visibility="public" xPosition="925.0" yPosition="3.0">
       <Fields>
         <Field name="sn" type="SN" visibility="private"/>
         <Field name="xmlsc" type="XMLScanner" visibility="private"/>
@@ -105,7 +113,7 @@
         <Method name="connect_nodes_via_arcs" returnType="void" visibility="private"/>
       </Methods>
     </Class>
-    <Class name="SN" package="" visibility="public" xPosition="938.0" yPosition="435.0">
+    <Class name="SN" package="" visibility="public" xPosition="1007.0" yPosition="479.0">
       <Fields>
         <Field name="P" type="ArrayList&lt;Place&gt;" visibility="private" isStatic="true"/>
         <Field name="T" type="ArrayList&lt;Transition&gt;" visibility="private" isStatic="true"/>
@@ -152,7 +160,7 @@
         <Method name="get_initial_marking" returnType="Marking" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Marking" package="" visibility="public" xPosition="718.0" yPosition="861.0">
+    <Class name="Marking" package="" visibility="public" xPosition="925.0" yPosition="938.0">
       <Fields>
         <Field name="marking" type="HashMap&lt;PlaceToken[]&gt;" visibility="private"/>
       </Fields>
@@ -169,7 +177,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="ColourClass" package="" visibility="public" xPosition="1209.0" yPosition="923.0">
+    <Class name="ColourClass" package="" visibility="public" xPosition="1256.0" yPosition="1044.0">
       <Fields>
         <Field name="ColourClass_name" type="String" visibility="private"/>
         <Field name="available_tokens" type="Token[]" visibility="private"/>
@@ -184,19 +192,22 @@
         <Method name="is_available" returnType="Token" visibility="public">
           <Argument type="Token" name="t"/>
         </Method>
+        <Method name="create_available_tokens" returnType="void" visibility="public">
+          <Argument type="String[]" name="values"/>
+        </Method>
       </Methods>
     </Class>
-    <Class name="Variable" package="" visibility="public" xPosition="344.0" yPosition="820.0">
+    <Class name="Variable" package="" visibility="public" xPosition="408.0" yPosition="887.0">
       <Fields>
         <Field name="variable_name" type="String" visibility="private"/>
-        <Field name="colour_type" type="String" visibility="private"/>
+        <Field name="colour_type" type="ColourClass" visibility="private"/>
         <Field name="current_assignment" type="Token" visibility="private"/>
       </Fields>
       <Constructors/>
       <Methods>
         <Method name="Variable" returnType="String" visibility="public">
           <Argument type="String" name="name"/>
-          <Argument type="String" name="type"/>
+          <Argument type="ColourClass" name="type"/>
         </Method>
       </Methods>
     </Class>
@@ -222,6 +233,7 @@
         <Field name="level" type="int" visibility="private"/>
         <Field name="ExVar" type="ArrayList&lt;Variable&gt;" visibility="private"/>
         <Field name="guard" type="Guard" visibility="private"/>
+        <Field name="multiplicity" type="int" visibility="private"/>
       </Fields>
       <Constructors/>
       <Methods>
@@ -230,7 +242,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Token" package="" visibility="public" xPosition="332.0" yPosition="537.0">
+    <Class name="Token" package="" visibility="public" xPosition="308.0" yPosition="607.0">
       <Fields>
         <Field name="value" type="String" visibility="private"/>
         <Field name="class_type" type="ColourClass" visibility="private"/>
@@ -239,21 +251,22 @@
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="Token" returnType="ColourClass" visibility="public">
+        <Method name="Token" returnType="void" visibility="public">
           <Argument type="String" name="value"/>
           <Argument type="ColourClass" name="type"/>
         </Method>
-        <Method name="Token" returnType="Domain" visibility="public">
+        <Method name="Token" returnType="void" visibility="public">
           <Argument type="String" name="value"/>
           <Argument type="Domain" name="type"/>
         </Method>
+        <Method name="get_type" returnType="Object" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Guard" package="" visibility="private" xPosition="45.0" yPosition="750.0">
+    <Class name="Guard" package="" visibility="private" xPosition="65.0" yPosition="836.0">
       <Fields>
         <Field name="predicates" type="ArrayList&lt;Predicate&gt;" visibility="private"/>
         <Field name="SeparationTypes" type="ArrayList&lt;String&gt;" visibility="private"/>
-        <Field name="invert_result" type="boolean" visibility="private"/>
+        <Field name="invert_result" type="boolean" visibility="private" isFinal="true"/>
       </Fields>
       <Constructors/>
       <Methods>
@@ -269,14 +282,13 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Predicate" package="" visibility="public" xPosition="146.0" yPosition="1011.0">
+    <Class name="Predicate" package="" visibility="public" xPosition="201.0" yPosition="1102.0">
       <Fields>
         <Field name="v1" type="Variable" visibility="private" isFinal="true"/>
         <Field name="operation" type="String" visibility="private" isFinal="true"/>
         <Field name="v2" type="Variable" visibility="private"/>
         <Field name="c" type="ColourClass" visibility="private"/>
         <Field name="invert_result" type="boolean" visibility="private" isFinal="true"/>
-        <Field name="sn" type="SN" visibility="private" isFinal="true"/>
       </Fields>
       <Constructors/>
       <Methods>
@@ -297,28 +309,28 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="has#5" source="SN" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <IsRelation name="is" source="Inhibitor" target="Arc"/>
-    <IsRelation name="is" source="Transition" target="Node"/>
-    <IsRelation name="is" source="Place" target="Node"/>
+    <IsRelation name="is" source="TArc" target="Arc"/>
+    <HasRelation name="translate_from" source="SNTranslator" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="has_colours" source="Domain" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="consists_of" source="Guard" target="Predicate" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="may_have" source="Transition" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="should_have" source="Predicate" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has#6" source="SN" target="Marking" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="use_to_fill" source="DataParser" target="XMLScanner" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="has2" source="SN" target="Transition" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has1" source="SN" target="Place" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has#5" source="SN" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="use_next_previous" source="Node" target="Arc" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="Inhibitor" target="Arc"/>
+    <HasRelation name="has3" source="SN" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="Mayhave" source="Arc" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="assign_currently" source="Place" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="Place" target="Node"/>
+    <HasRelation name="may_have" source="Predicate" target="ColourClass" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="has4" source="SN" target="Domain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="Transition" target="Node"/>
     <HasRelation name="fills" source="DataParser" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="consists_of" source="Marking" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has1" source="SN" target="Place" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="translate_from" source="SNTranslator" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="use_to_fill" source="DataParser" target="XMLScanner" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="use_next_previous" source="Node" target="Arc" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="assign_currently" source="Place" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has#6" source="SN" target="Marking" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="has_colours" source="Domain" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="uses_def" source="Guard" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="should_have" source="Predicate" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="Mayhave" source="Arc" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="TArc" target="Arc"/>
-    <HasRelation name="consists_of" source="Guard" target="Predicate" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has3" source="SN" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has4" source="SN" target="Domain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="may_have" source="Predicate" target="ColourClass" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="may_have" source="Transition" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
