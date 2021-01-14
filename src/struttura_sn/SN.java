@@ -16,7 +16,7 @@ public class SN {
     
     private static ArrayList<Place> P = new ArrayList<>();
     private static ArrayList<Transition> T = new ArrayList<>();
-    private static ArrayList<ColourClass> C = new ArrayList<>();
+    private static ArrayList<ColourClass> C = new ArrayList<>(); //C.get(0) is the neutral colour
     private static ArrayList<Domain> DC = new ArrayList<>();
     private static ArrayList<Variable> V = new ArrayList<>();
     private static Marking m0;

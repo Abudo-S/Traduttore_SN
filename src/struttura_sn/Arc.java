@@ -6,7 +6,6 @@
 package struttura_sn;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  *
@@ -16,16 +15,34 @@ public abstract class Arc {
     
     protected String name;
     protected int level;
-    protected ArrayList<Variable> ExVars;
-    protected Guard guard; // will be removed
-    protected Guard[] guard_class;
-    protected Guard[] guard_domain;
-    protected int multiplicity; // will be removed
-    protected HashMap<Variable, Integer> mult_class;
-    protected HashMap<Variable[], Integer> mult_domain;
+    protected ArrayList<Guard> guard_classORdomain; //[guard]<variable> || [guard]<variable,variable,...> 
+    protected ArrayList<Integer> multiplicity; 
+    protected ArrayList<Variable[]> vars; //<variable> case of colourClass|| <variable,variable,...> case od domain
     
-    public void add_expressionVar(Variable v){
-        this.ExVars.add(v);
+    public void add_guard_colourClassORdomain(Guard g){
+        this.guard_classORdomain.add(g);
+    }
+    
+    public void add_mult_varOfcolourClass(Variable v, int mult){
+        this.vars.add(new Variable[]{v});
+        this.multiplicity.add(mult);
+    }
+    
+    public void add_multiplicity_domain(Variable[] vars, int mult){
+        this.vars.add(vars);
+        this.multiplicity.add(mult);
+    }
+    
+    public ArrayList<Guard> get_guards(){
+        return this.guard_classORdomain;
+    }
+    
+    public ArrayList<Integer> get_mult(){
+        return this.multiplicity;
+    }
+    
+    public ArrayList<Variable[]> get_vars(){
+        return this.vars;
     }
     
 }

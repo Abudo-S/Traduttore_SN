@@ -13,12 +13,12 @@ import java.util.ArrayList;
  */
 public class Inhibitor extends Arc{
     
-    public Inhibitor(String name, int lvl, Guard g, int mult){
+    public Inhibitor(String name, int lvl){
         this.name = name;
         this.level = lvl;
-        this.guard = g;
-        this.ExVars= new ArrayList<>();
-        this.multiplicity = mult;
+        this.multiplicity = new ArrayList<>();
+        this.guard_classORdomain = new ArrayList<>();
+        this.vars = new ArrayList<>();
     }
     
 }

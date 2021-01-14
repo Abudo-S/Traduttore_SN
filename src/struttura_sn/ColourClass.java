@@ -5,8 +5,8 @@
  */
 package struttura_sn;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  *
@@ -14,15 +14,17 @@ import java.util.HashMap;
  */
 public class ColourClass {
     
-   private final String ColourClass_name;
-   private final Token[] available_tokens; // tokens that don't belong to a subclass
-   private HashMap<String, Token[]> Sub_classes; // each subclass has a finite set of colors 
+   protected String ColourClass_name;
+   protected Token[] available_tokens; // tokens that don't belong to a subclass
+   private ArrayList<SubColourClass> subClasses;
+   //private HashMap<String, Token[]> Sub_classes; // each subclass has a finite set of colors 
    
    public ColourClass(String name, String[] available_token_values){
        this.ColourClass_name = name;
        this.available_tokens = new Token[available_token_values.length];
        this.create_available_tokens(available_token_values);
-       this.Sub_classes = new HashMap<>();
+       this.subClasses = new ArrayList<>();
+       //this.Sub_classes = new HashMap<>();
    }
    
    public String get_colour_name(){
@@ -33,22 +35,60 @@ public class ColourClass {
        return Arrays.binarySearch(available_tokens, t) >= 0;
    }
    
+   public Token[] get_tokens(){
+       return this.available_tokens;
+   }
+   
    private void create_available_tokens(String[] values){
        for(var i=0; i<values.length; i++){
            this.available_tokens[i] = new Token(values[i], this);
        }
    }
    
-   public void add_subclass(String subclass_name, Token[] tokens){
-       this.Sub_classes.put(subclass_name, tokens);
+//   public void add_subclass(String subclass_name, Token[] tokens){
+//       this.Sub_classes.put(subclass_name, tokens);
+//   }
+//   
+//   public Token[] get_tokens_of_subclass(String subclass_name){
+//       return this.Sub_classes.get(subclass_name);
+//   }
+//   
+//   public HashMap<String, Token[]> get_all_subclasses(){
+//       return this.Sub_classes;
+//   }
+   
+   public class SubColourClass extends ColourClass{
+
+       public SubColourClass(String name, String[] available_token_values){
+           this.ColourClass_name = name;
+           this.available_tokens = new Token[available_token_values.length];
+       }
+   }
+   
+   public void add_subclass(SubColourClass sc){
+       this.subClasses.add(sc);
+   }
+   
+   private SubColourClass get_subClassByname(String subclass_name){
+        for(SubColourClass sc : this.subClasses){
+           if(sc.get_colour_name().equals(subclass_name)){
+             return sc;
+           }
+        }
+       return null;
    }
    
    public Token[] get_tokens_of_subclass(String subclass_name){
-       return this.Sub_classes.get(subclass_name);
+       try{
+           return this.get_subClassByname(subclass_name).get_tokens();
+       }catch(Exception e){
+           System.out.println(e + " in ColourClass/get_tokens_of_subclass");
+       }
+       return null;
    }
    
-   public HashMap<String, Token[]> get_all_subclasses(){
-       return this.Sub_classes;
+   public boolean is_availableInSubclass(Token t, String subclass_name){
+       return this.get_subClassByname(subclass_name).is_available(t);
    }
    
 }
