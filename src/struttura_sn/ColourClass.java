@@ -39,7 +39,7 @@ public class ColourClass {
        return this.available_tokens;
    }
    
-   private void create_available_tokens(String[] values){
+   protected final void create_available_tokens(String[] values){
        for(var i=0; i<values.length; i++){
            this.available_tokens[i] = new Token(values[i], this);
        }
@@ -60,8 +60,7 @@ public class ColourClass {
    public class SubColourClass extends ColourClass{
 
        public SubColourClass(String name, String[] available_token_values){
-           this.ColourClass_name = name;
-           this.available_tokens = new Token[available_token_values.length];
+           super(name, available_token_values);
        }
    }
    

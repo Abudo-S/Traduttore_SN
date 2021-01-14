@@ -48,6 +48,7 @@ public class Traduzione_SN {
         Transition t1 = new Transition("t1", new Guard(false));
         Transition t2 = new Transition("t2", new Guard(false));
         p0.add_next_Node(new TArc("arc0",0),t0);
+       
         sn.add_place(p0);
         sn.add_place(p1);
         sn.add_place(p2);
@@ -60,7 +61,7 @@ public class Traduzione_SN {
         sn.add_transition(t2);
         
         
-        sn.SN_all_data();
+        //sn.SN_all_data();
         
     }
     
