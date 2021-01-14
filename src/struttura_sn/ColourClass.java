@@ -15,13 +15,14 @@ import java.util.HashMap;
 public class ColourClass {
     
    private final String ColourClass_name;
-   private final Token[] available_tokens;
-   private HashMap<String, Token[]> Sub_classes; // each subclass has a finite colors 
+   private final Token[] available_tokens; // tokens that don't belong to a subclass
+   private HashMap<String, Token[]> Sub_classes; // each subclass has a finite set of colors 
    
    public ColourClass(String name, String[] available_token_values){
        this.ColourClass_name = name;
        this.available_tokens = new Token[available_token_values.length];
        this.create_available_tokens(available_token_values);
+       this.Sub_classes = new HashMap<>();
    }
    
    public String get_colour_name(){
@@ -49,4 +50,5 @@ public class ColourClass {
    public HashMap<String, Token[]> get_all_subclasses(){
        return this.Sub_classes;
    }
+   
 }
