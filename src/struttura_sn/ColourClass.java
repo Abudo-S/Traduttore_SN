@@ -6,6 +6,7 @@
 package struttura_sn;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  *
@@ -15,6 +16,7 @@ public class ColourClass {
     
    private final String ColourClass_name;
    private final Token[] available_tokens;
+   private HashMap<String, Token[]> Sub_classes; // each subclass has a finite colors 
    
    public ColourClass(String name, String[] available_token_values){
        this.ColourClass_name = name;
@@ -35,5 +37,16 @@ public class ColourClass {
            this.available_tokens[i] = new Token(values[i], this);
        }
    }
-    
+   
+   public void add_subclass(String subclass_name, Token[] tokens){
+       this.Sub_classes.put(subclass_name, tokens);
+   }
+   
+   public Token[] get_tokens_of_subclass(String subclass_name){
+       return this.Sub_classes.get(subclass_name);
+   }
+   
+   public HashMap<String, Token[]> get_all_subclasses(){
+       return this.Sub_classes;
+   }
 }
