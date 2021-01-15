@@ -24,12 +24,13 @@ public class Predicate {
         this.invert_result = not;
     }
     
-    public Predicate(Variable v1, String op, ColourClass.SubColourClass  c, boolean not){
+    public Predicate(Variable v1, String op, ColourClass.SubColourClass c, boolean not){
         this.v1 = v1;
         this.operation = op;
         this.c = c;
         this.invert_result = not;
     }    
+    
     public boolean is_satisfied(){
         boolean sat = false;
         int v2_com = 0;

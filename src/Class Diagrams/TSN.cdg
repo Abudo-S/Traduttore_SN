@@ -17,7 +17,7 @@
           <Argument type="String" name="name"/>
           <Argument type="Domain" name="type"/>
         </Method>
-        <Method name="get_type" returnType="Object" visibility="public"/>
+        <Method name="get_type" returnType="String" visibility="public"/>
       </Methods>
     </Class>
     <Class name="Node" package="" visibility="public" isAbstract="true" xPosition="605.0" yPosition="117.0">
@@ -32,13 +32,13 @@
           <Argument type="Arc" name="arc"/>
           <Argument type="Node" name="n"/>
         </Method>
-        <Method name="add_previous_node" returnType="Node" visibility="public">
+        <Method name="add_previous_node" returnType="void" visibility="public">
           <Argument type="Arc" name="arc"/>
           <Argument type="Node" name="n"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Transition" package="" visibility="public" xPosition="175.0" yPosition="447.0">
+    <Class name="Transition" package="" visibility="public" xPosition="201.0" yPosition="442.0">
       <Fields>
         <Field name="guard" type="Guard" visibility="private"/>
       </Fields>
@@ -48,6 +48,7 @@
           <Argument type="String" name="name"/>
           <Argument type="Guard" name="g"/>
         </Method>
+        <Method name="is_enabled" returnType="boolean" visibility="public"/>
       </Methods>
     </Class>
     <Class name="TArc" package="" visibility="public" xPosition="21.0" yPosition="8.0">
@@ -160,19 +161,20 @@
         <Method name="get_initial_marking" returnType="Marking" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Marking" package="" visibility="public" xPosition="879.0" yPosition="927.0">
+    <Class name="Marking" package="" visibility="public" xPosition="881.0" yPosition="938.0">
       <Fields>
-        <Field name="marking" type="HashMap&lt;PlaceToken[]&gt;" visibility="private"/>
+        <Field name="marking" type="HashMap&lt;PlaceHashMap&gt;" visibility="private"/>
       </Fields>
       <Constructors/>
       <Methods>
         <Method name="Marking" returnType="void" visibility="public"/>
-        <Method name="mark_place" returnType="Token[]" visibility="public">
+        <Method name="mark_place" returnType="void" visibility="public">
           <Argument type="Place" name="p"/>
           <Argument type="Token[]" name="tokens"/>
+          <Argument type="int[]" name="multiplicity"/>
         </Method>
         <Method name="get_all_marked_Places" returnType="Set" visibility="public"/>
-        <Method name="get_marking_of_place" returnType="Place" visibility="public">
+        <Method name="get_marking_of_place" returnType="HashMap" visibility="public">
           <Argument type="Place" name="p"/>
         </Method>
       </Methods>
@@ -255,13 +257,13 @@
           <Argument type="Variable" name="v"/>
           <Argument type="int" name="mult"/>
         </Method>
-        <Method name="add_multiplicity_domain" returnType="void" visibility="public">
+        <Method name="add_mult_varsOfdomain" returnType="void" visibility="public">
           <Argument type="Variable[]" name="vars"/>
           <Argument type="int" name="mult"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Token" package="" visibility="public" xPosition="308.0" yPosition="607.0">
+    <Class name="Token" package="" visibility="public" xPosition="346.0" yPosition="613.0">
       <Fields>
         <Field name="value" type="String" visibility="private"/>
         <Field name="class_type" type="ColourClass" visibility="private"/>

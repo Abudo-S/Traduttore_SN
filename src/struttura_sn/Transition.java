@@ -24,8 +24,10 @@ public class Transition extends Node{
     
     //next/previous node of a transition is a place
     //next arc of a transition is a transitioning arc
-    public void add_next_Node(TArc arc, Place p){
+    public Place add_next_Node(TArc arc, Place p){
         this.Next.put(arc, p);
+        p.add_previous_Node(arc, this);
+        return p;
     }
     
     //previous arc of a transition might be an inhibitor or a transitioning arc

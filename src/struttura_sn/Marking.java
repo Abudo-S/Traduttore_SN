@@ -13,21 +13,27 @@ import java.util.Set;
  * @author dell
  */
 public class Marking {
-    private HashMap<Place, Token[]> marking;
+    
+    private HashMap<Place, HashMap<Token, Integer>> marking; // place -> token of multiplicity n
     
     public Marking(){
         this.marking = new HashMap<>();
     }
     
-    public void mark_place(Place p, Token[] tokens){
-        this.marking.put(p, tokens);
+    public void mark_place(Place p, Token[] tokens, int[] multiplicity){
+        HashMap<Token, Integer> mark = new HashMap<>();
+        
+        for(var i=0; i<multiplicity.length;i++ ){
+            mark.put(tokens[i], multiplicity[i]);
+        }
+        this.marking.put(p, mark);
     }
     
     public Set<Place> get_all_marked_Places(){
         return this.marking.keySet();
     }
     
-    public Token[] get_marking_of_place(Place p){
+    public HashMap<Token, Integer> get_marking_of_place(Place p){
         return this.marking.get(p);
     }
 }

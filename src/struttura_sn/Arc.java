@@ -28,7 +28,7 @@ public abstract class Arc {
         this.multiplicity.add(mult);
     }
     
-    public void add_multiplicity_domain(Variable[] vars, int mult){
+    public void add_mult_varsOfdomain(Variable[] vars, int mult){
         this.vars.add(vars);
         this.multiplicity.add(mult);
     }
@@ -45,4 +45,11 @@ public abstract class Arc {
         return this.vars;
     }
     
+    public String get_name(){
+        return this.name;
+    }
+    
+    public int get_level(){
+        return this.level;
+    }
 }
