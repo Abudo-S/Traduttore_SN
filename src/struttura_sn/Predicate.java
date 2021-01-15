@@ -14,7 +14,7 @@ public class Predicate {
     private final Variable v1;
     private final String operation;
     private Variable v2 = null;
-    private ColourClass c = null;
+    private ColourClass.SubColourClass c = null;
     private final boolean invert_result;
     
     public Predicate(Variable v1, String op, Variable v2, boolean not){
@@ -24,7 +24,7 @@ public class Predicate {
         this.invert_result = not;
     }
     
-    public Predicate(Variable v1, String op, ColourClass c, boolean not){
+    public Predicate(Variable v1, String op, ColourClass.SubColourClass  c, boolean not){
         this.v1 = v1;
         this.operation = op;
         this.c = c;

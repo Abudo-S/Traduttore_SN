@@ -14,8 +14,8 @@ import java.util.Arrays;
  */
 public class ColourClass {
     
-   protected String ColourClass_name;
-   protected Token[] available_tokens; // tokens that don't belong to a subclass
+   private final String ColourClass_name;
+   private Token[] available_tokens; // tokens that don't belong to a subclass
    private ArrayList<SubColourClass> subClasses;
    //private HashMap<String, Token[]> Sub_classes; // each subclass has a finite set of colors 
    
@@ -39,7 +39,7 @@ public class ColourClass {
        return this.available_tokens;
    }
    
-   protected final void create_available_tokens(String[] values){
+   private void create_available_tokens(String[] values){
        for(var i=0; i<values.length; i++){
            this.available_tokens[i] = new Token(values[i], this);
        }
@@ -56,13 +56,6 @@ public class ColourClass {
 //   public HashMap<String, Token[]> get_all_subclasses(){
 //       return this.Sub_classes;
 //   }
-   
-   public class SubColourClass extends ColourClass{
-
-       public SubColourClass(String name, String[] available_token_values){
-           super(name, available_token_values);
-       }
-   }
    
    public void add_subclass(SubColourClass sc){
        this.subClasses.add(sc);
@@ -90,4 +83,12 @@ public class ColourClass {
        return this.get_subClassByname(subclass_name).is_available(t);
    }
    
+   public class SubColourClass extends ColourClass{
+
+       public SubColourClass(String name, String[] available_token_values){
+           super(name, available_token_values);
+       }
+   }
+   
 }
+
