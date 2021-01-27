@@ -35,6 +35,19 @@ public class DataParser {
         }
     }
     
+    public void add_domain(String domain_name, String[] Colourclasses_names){
+        sn.add_domain(new Domain(domain_name, this.extract_colourclasses(Colourclasses_names)));
+    }
+    
+    private ColourClass[] extract_colourclasses(String[] Colourclasses_names){
+        ColourClass[] classes = new ColourClass[Colourclasses_names.length];
+        for(var i = 0; i < Colourclasses_names.length; i++){
+            classes[i] = sn.find_colourClass(Colourclasses_names[i]);
+        }
+        return classes;
+    }
+    
+    
     public void add_place(){
        
     }
