@@ -47,6 +47,9 @@ public class DataParser {
         return classes;
     }
     
+    public void add_variable(String variable_name, String class_name){
+        sn.add_variable(new Variable(variable_name,sn.find_colourClass(class_name)));
+    }
     
     public void add_place(){
        

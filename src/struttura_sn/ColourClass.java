@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class ColourClass {
     
    private final String ColourClass_name;
-   private Token[] available_tokens; // tokens that don't belong to a subclass
+   private final Token[] available_tokens; // tokens that don't belong to a subclass
    private ArrayList<SubColourClass> subClasses;
    //private HashMap<String, Token[]> Sub_classes; // each subclass has a finite set of colors 
    
@@ -87,6 +87,11 @@ public class ColourClass {
 
        public SubColourClass(String name, String[] available_token_values){
            super(name, available_token_values);
+       }
+       
+       @Override
+       public void add_subclass(SubColourClass sc) throws NullPointerException {
+         throw new NullPointerException("Can't create subclasses from a subclass!"); 
        }
    }
    
