@@ -2,25 +2,25 @@
 
 <ClassDiagram name="TSN">
   <ClassDiagramComponents>
-    <Class name="Place" package="" visibility="public" xPosition="727.0" yPosition="407.0">
+    <Class name="Place" package="" visibility="public" xPosition="724.0" yPosition="296.0">
       <Fields>
         <Field name="Colour_type" type="ColourClass" visibility="private"/>
         <Field name="domain_type" type="Domain" visibility="private"/>
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="Place" returnType="void" visibility="public">
+        <Method name="Place" returnType="ColourClass" visibility="public">
           <Argument type="String" name="name"/>
           <Argument type="ColourClass" name="type"/>
         </Method>
-        <Method name="Place" returnType="void" visibility="public">
+        <Method name="Place" returnType="Domain" visibility="public">
           <Argument type="String" name="name"/>
           <Argument type="Domain" name="type"/>
         </Method>
         <Method name="get_type" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Node" package="" visibility="public" isAbstract="true" xPosition="801.0" yPosition="8.0">
+    <Class name="Node" package="" visibility="public" isAbstract="true" xPosition="764.0" yPosition="8.0">
       <Fields>
         <Field name="previous" type="HashMap&lt;ArcNode&gt;" visibility="private"/>
         <Field name="next" type="HashMap&lt;ArcNode&gt;" visibility="private"/>
@@ -32,13 +32,13 @@
           <Argument type="Arc" name="arc"/>
           <Argument type="Node" name="n"/>
         </Method>
-        <Method name="add_previous_node" returnType="void" visibility="public">
+        <Method name="add_previous_node" returnType="Node" visibility="public">
           <Argument type="Arc" name="arc"/>
           <Argument type="Node" name="n"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Transition" package="" visibility="public" xPosition="408.0" yPosition="338.0">
+    <Class name="Transition" package="" visibility="public" xPosition="196.0" yPosition="555.0">
       <Fields>
         <Field name="guard" type="Guard" visibility="private"/>
       </Fields>
@@ -55,7 +55,7 @@
       <Fields/>
       <Constructors/>
       <Methods>
-        <Method name="TArc" returnType="Guard" visibility="public">
+        <Method name="TArc" returnType="int" visibility="public">
           <Argument type="String" name="name"/>
           <Argument type="int" name="lvl"/>
           <Argument type="Guard" name="g"/>
@@ -67,7 +67,7 @@
       <Fields/>
       <Constructors/>
       <Methods>
-        <Method name="Inhibitor" returnType="Guard" visibility="public">
+        <Method name="Inhibitor" returnType="int" visibility="public">
           <Argument type="String" name="name"/>
           <Argument type="int" name="lvl"/>
           <Argument type="Guard" name="g"/>
@@ -75,14 +75,14 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="SNTranslator" package="" visibility="public" xPosition="1431.0" yPosition="571.0">
+    <Class name="SNTranslator" package="" visibility="public" xPosition="1087.0" yPosition="875.0">
       <Fields>
         <Field name="sn" type="SN" visibility="private"/>
       </Fields>
       <Constructors/>
       <Methods/>
     </Class>
-    <Class name="XMLScanner" package="" visibility="public" xPosition="1874.0" yPosition="373.0">
+    <Class name="XMLScanner" package="" visibility="public" xPosition="2075.0" yPosition="521.0">
       <Fields>
         <Field name="xmlFile" type="String" visibility="private"/>
         <Field name="DP" type="DataParser" visibility="private"/>
@@ -100,37 +100,42 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="DataParser" package="" visibility="public" xPosition="1212.0" yPosition="37.0">
+    <Class name="DataParser" package="" visibility="public" xPosition="1124.0" yPosition="104.0">
       <Fields>
         <Field name="sn" type="SN" visibility="private" isStatic="true"/>
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="add_place" returnType="void" visibility="public">
+        <Method name="add_place" returnType="String" visibility="public">
           <Argument type="String" name="place_name"/>
           <Argument type="String" name="CsolourClass_name"/>
         </Method>
         <Method name="add_transition" returnType="void" visibility="public"/>
-        <Method name="add_colourClass" returnType="void" visibility="public">
+        <Method name="add_colourClass" returnType="String[]" visibility="public">
           <Argument type="String" name="class_name"/>
           <Argument type="String[]" name="available_tokens"/>
         </Method>
-        <Method name="add_domain" returnType="void" visibility="public">
+        <Method name="add_domain" returnType="String[]" visibility="public">
           <Argument type="String" name="domain_name"/>
           <Argument type="String[]" name="names"/>
         </Method>
-        <Method name="add_variable" returnType="void" visibility="public">
+        <Method name="add_variable" returnType="String" visibility="public">
           <Argument type="String" name="variable_name"/>
           <Argument type="String" name="class_name"/>
         </Method>
-        <Method name="connect_nodes_via_arcs" returnType="void" visibility="private"/>
-        <Method name="DataParser" returnType="void" visibility="public">
+        <Method name="connect_nodes_via_arc" returnType="String" visibility="private">
+          <Argument type="String" name="from"/>
+          <Argument type="String" name="to"/>
+          <Argument type="String" name="arc_type"/>
+          <Argument type="String" name="arc_name"/>
+        </Method>
+        <Method name="DataParser" returnType="SN" visibility="public">
           <Argument type="SN" name="sn"/>
         </Method>
-        <Method name="extract_colourclasses" returnType="ColourClass[]" visibility="private">
+        <Method name="extract_colourclasses" returnType="String[]" visibility="private">
           <Argument type="String[]" name="names"/>
         </Method>
-        <Method name="add_colourClass" returnType="void" visibility="public">
+        <Method name="add_colourClass" returnType="ArrayList&lt;String[]&gt;" visibility="public">
           <Argument type="String" name="class_name"/>
           <Argument type="String[]" name="available_tokens"/>
           <Argument type="String[]" name="subclasses_names"/>
@@ -139,7 +144,7 @@
         <Method name="create_Marking" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="SN" package="" visibility="public" xPosition="982.0" yPosition="776.0">
+    <Class name="SN" package="" visibility="public" xPosition="1394.0" yPosition="836.0">
       <Fields>
         <Field name="P" type="ArrayList&lt;Place&gt;" visibility="private" isStatic="true"/>
         <Field name="T" type="ArrayList&lt;Transition&gt;" visibility="private" isStatic="true"/>
@@ -184,27 +189,36 @@
           <Argument type="String" name="variable_name"/>
         </Method>
         <Method name="get_initial_marking" returnType="Marking" visibility="public"/>
+        <Method name="update_nodes_via_arc" returnType="Transition" visibility="public">
+          <Argument type="Place" name="p"/>
+          <Argument type="Transition" name="t"/>
+        </Method>
       </Methods>
     </Class>
-    <Class name="Marking" package="" visibility="public" xPosition="727.0" yPosition="1194.0">
+    <Class name="Marking" package="" visibility="public" xPosition="747.0" yPosition="1270.0">
       <Fields>
         <Field name="marking" type="HashMap&lt;PlaceHashMap&gt;" visibility="private"/>
       </Fields>
       <Constructors/>
       <Methods>
         <Method name="Marking" returnType="void" visibility="public"/>
-        <Method name="mark_place" returnType="void" visibility="public">
+        <Method name="mark_place" returnType="int[]" visibility="public">
           <Argument type="Place" name="p"/>
           <Argument type="Token[]" name="tokens"/>
           <Argument type="int[]" name="multiplicity"/>
         </Method>
         <Method name="get_all_marked_Places" returnType="Set" visibility="public"/>
-        <Method name="get_marking_of_place" returnType="HashMap" visibility="public">
+        <Method name="get_marking_of_place" returnType="Place" visibility="public">
           <Argument type="Place" name="p"/>
+        </Method>
+        <Method name="mark_place" returnType="void" visibility="public">
+          <Argument type="Place" name="p"/>
+          <Argument type="Token[][]" name="tokens"/>
+          <Argument type="int[]" name="multiplicity"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="ColourClass" package="" visibility="public" xPosition="1333.0" yPosition="1152.0">
+    <Class name="ColourClass" package="" visibility="public" xPosition="1582.0" yPosition="1330.0">
       <Fields>
         <Field name="ColourClass_name" type="String" visibility="private" isFinal="true"/>
         <Field name="available_tokens" type="Token[]" visibility="private"/>
@@ -220,22 +234,22 @@
         <Method name="is_available" returnType="Token" visibility="public">
           <Argument type="Token" name="t"/>
         </Method>
-        <Method name="create_available_tokens" returnType="void" visibility="private">
+        <Method name="create_available_tokens" returnType="String[]" visibility="private">
           <Argument type="String[]" name="values"/>
         </Method>
-        <Method name="get_subClassByname" returnType="SubColourClass" visibility="private">
+        <Method name="get_subClassByname" returnType="String" visibility="private">
           <Argument type="String" name="subclass_name"/>
         </Method>
-        <Method name="get_tokens_of_subclass" returnType="Token[]" visibility="public">
+        <Method name="get_tokens_of_subclass" returnType="String" visibility="public">
           <Argument type="String" name="subclass_name"/>
         </Method>
-        <Method name="is_availableInSubclass" returnType="boolean" visibility="public">
+        <Method name="is_availableInSubclass" returnType="String" visibility="public">
           <Argument type="Token" name="t"/>
           <Argument type="String" name="subclass_name"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Variable" package="" visibility="public" xPosition="374.0" yPosition="1092.0">
+    <Class name="Variable" package="" visibility="public" xPosition="274.0" yPosition="1112.0">
       <Fields>
         <Field name="variable_name" type="String" visibility="private"/>
         <Field name="colour_type" type="ColourClass" visibility="private"/>
@@ -243,13 +257,13 @@
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="Variable" returnType="String" visibility="public">
+        <Method name="Variable" returnType="ColourClass" visibility="public">
           <Argument type="String" name="name"/>
           <Argument type="ColourClass" name="type"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Domain" package="" visibility="public" xPosition="1667.0" yPosition="798.0">
+    <Class name="Domain" package="" visibility="public" xPosition="1846.0" yPosition="875.0">
       <Fields>
         <Field name="ColourClasses" type="ColourClass[]" visibility="private"/>
         <Field name="name" type="String" visibility="private"/>
@@ -265,7 +279,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Arc" package="" visibility="public" isAbstract="true" xPosition="-4.0" yPosition="159.0">
+    <Class name="Arc" package="" visibility="public" isAbstract="true" xPosition="21.0" yPosition="144.0">
       <Fields>
         <Field name="name" type="String" visibility="private"/>
         <Field name="level" type="int" visibility="private"/>
@@ -275,37 +289,35 @@
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="add_guard_colourClassORdomain" returnType="void" visibility="public">
+        <Method name="add_guard_colourClassORdomain" returnType="Guard" visibility="public">
           <Argument type="Guard" name="g"/>
         </Method>
-        <Method name="add_mult_varOfcolourClass" returnType="void" visibility="public">
+        <Method name="add_mult_varOfcolourClass" returnType="int" visibility="public">
           <Argument type="Variable" name="v"/>
           <Argument type="int" name="mult"/>
         </Method>
-        <Method name="add_mult_varsOfdomain" returnType="void" visibility="public">
+        <Method name="add_mult_varsOfdomain" returnType="int" visibility="public">
           <Argument type="Variable[]" name="vars"/>
           <Argument type="int" name="mult"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="Token" package="" visibility="public" xPosition="401.0" yPosition="678.0">
+    <Class name="Token" package="" visibility="public" xPosition="379.0" yPosition="753.0">
       <Fields>
         <Field name="value" type="String" visibility="private"/>
         <Field name="class_type" type="ColourClass" visibility="private"/>
         <Field name="current_place" type="Place" visibility="private"/>
-        <Field name="domain_type" type="Domain" visibility="private"/>
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="Token" returnType="void" visibility="public">
+        <Method name="Token" returnType="ColourClass" visibility="public">
           <Argument type="String" name="value"/>
           <Argument type="ColourClass" name="type"/>
         </Method>
-        <Method name="Token" returnType="void" visibility="public">
+        <Method name="Token" returnType="Domain" visibility="public">
           <Argument type="String" name="value"/>
           <Argument type="Domain" name="type"/>
         </Method>
-        <Method name="get_type" returnType="String" visibility="public"/>
       </Methods>
     </Class>
     <Class name="Guard" package="" visibility="private" xPosition="65.0" yPosition="836.0">
@@ -316,11 +328,11 @@
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="Guard" returnType="void" visibility="public">
+        <Method name="Guard" returnType="boolean" visibility="public">
           <Argument type="boolean" name="not"/>
         </Method>
         <Method name="is_satisfied" returnType="boolean" visibility="public"/>
-        <Method name="add_predicate" returnType="String" visibility="public">
+        <Method name="add_predicate" returnType="Predicate" visibility="public">
           <Argument type="Predicate" name="pd"/>
         </Method>
         <Method name="add_separation" returnType="String" visibility="public">
@@ -328,7 +340,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Predicate" package="" visibility="public" xPosition="201.0" yPosition="1316.0">
+    <Class name="Predicate" package="" visibility="public" xPosition="65.0" yPosition="1407.0">
       <Fields>
         <Field name="v1" type="Variable" visibility="private" isFinal="true"/>
         <Field name="operation" type="String" visibility="private" isFinal="true"/>
@@ -338,13 +350,13 @@
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="Predicate" returnType="void" visibility="public">
+        <Method name="Predicate" returnType="boolean" visibility="public">
           <Argument type="Variable" name="v1"/>
           <Argument type="String" name="op"/>
           <Argument type="Variable" name="v2"/>
           <Argument type="boolean" name="not"/>
         </Method>
-        <Method name="Predicate" returnType="void" visibility="public">
+        <Method name="Predicate" returnType="boolean" visibility="public">
           <Argument type="Variable" name="v1"/>
           <Argument type="String" name="op"/>
           <Argument type="Colourclass" name="c"/>
@@ -353,37 +365,56 @@
         <Method name="is_satisfied" returnType="boolean" visibility="public"/>
       </Methods>
     </Class>
+    <Class name="TokenDomain" package="" visibility="public" xPosition="1212.0" yPosition="586.0">
+      <Fields>
+        <Field name="domain_type" type="Domain" visibility="private"/>
+        <Field name="value" type="Token[]" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="DomainToken" returnType="void" visibility="public">
+          <Argument type="Domain" name="domain_type"/>
+          <Argument type="Token[]" name="value"/>
+        </Method>
+        <Method name="is_token_available" returnType="boolean" visibility="public">
+          <Argument type="Token" name="t"/>
+        </Method>
+      </Methods>
+    </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="has#5" source="SN" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="consists_of" source="Marking" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has1" source="SN" target="Place" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has2" source="SN" target="Transition" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="assign_currently" source="Place" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <IsRelation name="is" source="TArc" target="Arc"/>
-    <HasRelation name="used_to_mark" source="Token" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="should_have" source="Predicate" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="uses_def" source="Guard" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="use_next_previous" source="Node" target="Arc" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="may_have" source="Transition" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="has4" source="SN" target="Domain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="create3" source="Variable" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Mayhave" source="Arc" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="create4" source="Place" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <IsRelation name="is" source="Inhibitor" target="Arc"/>
-    <HasRelation name="fills" source="DataParser" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="Transition" target="Node"/>
+    <HasRelation name="has#6" source="SN" target="Marking" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="create_via" source="XMLScanner" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="may_have" source="Predicate" target="ColourClass" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="Place" target="Node"/>
-    <HasRelation name="translate_from" source="SNTranslator" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="create2" source="Domain" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="TArc" target="Arc"/>
+    <HasRelation name="has1" source="SN" target="Place" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="consists_of" source="Guard" target="Predicate" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="create1" source="ColourClass" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="Mayhave" source="Arc" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="create3" source="Variable" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="has4" source="SN" target="Domain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has_colours" source="Domain" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has3" source="SN" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has#6" source="SN" target="Marking" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="create4" source="Place" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="used_to_connect" source="Arc" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has3" source="SN" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="create5" source="Transition" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="consists_of" source="Marking" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has_type" source="Token" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has_colours" source="Domain" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="uses_def" source="Guard" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has#5" source="SN" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="use_next_previous" source="Node" target="Arc" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has_type" source="Domain" target="TokenDomain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has2" source="SN" target="Transition" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="Transition" target="Node"/>
+    <HasRelation name="used_to_mark" source="Token" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="should_have" source="Predicate" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="translate_from" source="SNTranslator" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="create1" source="ColourClass" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="assign_currently" source="Place" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="create2" source="Domain" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Place" target="Node"/>
+    <HasRelation name="fills" source="DataParser" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="has_number_of" source="Token" target="TokenDomain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="may_have" source="Transition" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>

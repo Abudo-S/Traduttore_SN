@@ -51,7 +51,7 @@ public class Place extends Node{
         return this.previous.get(arc);
     }
     
-   public String get_type(){
+    public String get_type(){
         return (this.colour_type == null) ? this.domain_type.get_name() : this.colour_type.get_colour_name();
     }
 }

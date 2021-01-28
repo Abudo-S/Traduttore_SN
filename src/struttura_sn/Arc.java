@@ -23,12 +23,12 @@ public abstract class Arc {
         this.guard_classORdomain.add(g);
     }
     
-    public void add_mult_varOfcolourClass(Variable v, int mult){
+    public void add_mult_varOfcolourClass(Variable v, int mult){ //ex: 2<x>
         this.vars.add(new Variable[]{v});
         this.multiplicity.add(mult);
     }
     
-    public void add_mult_varsOfdomain(Variable[] vars, int mult){
+    public void add_mult_varsOfdomain(Variable[] vars, int mult){ //ex: 2<x,y>
         this.vars.add(vars);
         this.multiplicity.add(mult);
     }

@@ -14,17 +14,26 @@ import java.util.Set;
  */
 public class Marking {
     
-    private HashMap<Place, HashMap<Token, Integer>> marking; // place -> token of multiplicity n
+    // place -> token(s) of multiplicity n, a domained marking will have array of tokens with n multiplicity 
+    private HashMap<Place, HashMap<Token[], Integer>> marking; 
     
     public Marking(){
         this.marking = new HashMap<>();
     }
     
-    public void mark_place(Place p, Token[] tokens, int[] multiplicity){
-        HashMap<Token, Integer> mark = new HashMap<>();
+    public void mark_place(Place p, Token[] tokens, int[] multiplicity){ // mark a coloured place
+        HashMap<Token[], Integer> mark = new HashMap<>();
         
         for(var i=0; i<multiplicity.length;i++ ){
-            mark.put(tokens[i], multiplicity[i]);
+            mark.put(new Token[]{tokens[i]}, multiplicity[i]);
+        }
+        this.marking.put(p, mark);
+    }
+    public void mark_place(Place p, Token[][] tokens, int[] multiplicity){ // mark a domained place
+        HashMap<Token[], Integer> mark = new HashMap<>();
+        
+        for(var i=0; i<multiplicity.length;i++ ){
+            mark.put(new Token[i], multiplicity[i]);
         }
         this.marking.put(p, mark);
     }
@@ -33,7 +42,8 @@ public class Marking {
         return this.marking.keySet();
     }
     
-    public HashMap<Token, Integer> get_marking_of_place(Place p){
+    public HashMap<Token[], Integer> get_marking_of_place(Place p){
         return this.marking.get(p);
     }
+    
 }

@@ -11,9 +11,8 @@ package struttura_sn;
  */
 public class Token {
     
-    private final String value;
-    private ColourClass class_type = null;
-    private Domain domain_type = null;
+    private final String value; //in case of domain token then it will be value1,value2,...
+    private final ColourClass class_type ;
     private Place current_place;
    
     //can't be token of colour domain and colour class at the same time
@@ -22,13 +21,8 @@ public class Token {
         this.class_type = type;
     }
     
-    public Token(String value, Domain type){
-        this.value = value;
-        this.domain_type = type;
-    }
-    
-    public Object get_type(){
-        return (this.class_type == null) ? this.domain_type : this.class_type;
+    public ColourClass get_type(){
+        return this.class_type;
     }
     
     public String get_Token_value(){
@@ -38,6 +32,7 @@ public class Token {
     public Place get_current_place(){
         return this.current_place;
     }
+    
     /*
     public void set_type(ColourClass type) throws Exception{
         if(this.domain_type != null){

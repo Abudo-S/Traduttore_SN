@@ -7,6 +7,7 @@ package struttura_sn;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -100,6 +101,23 @@ public class SN {
     
     public Marking get_initial_marking(){
         return SN.m0;
+    }
+    
+    public void update_nodes_via_arc(Place p, Transition t){
+        
+        try{
+        P = (ArrayList<Place>) P.stream()
+                .filter(place -> place.get_name().equals(p.get_name()))
+                .map(place -> p)
+                .collect(Collectors.toList());
+        
+        T = (ArrayList<Transition>) T.stream()
+                .filter(transition -> transition.get_name().equals(t.get_name()))
+                .map(transition -> t)
+                .collect(Collectors.toList());
+        }catch(Exception e){
+            System.out.println(e + " while connecting arcs");
+        }
     }
     
     public void SN_all_data(){
