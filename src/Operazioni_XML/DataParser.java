@@ -41,6 +41,7 @@ public class DataParser {
     
     private ColourClass[] extract_colourclasses(String[] Colourclasses_names){
         ColourClass[] classes = new ColourClass[Colourclasses_names.length];
+        
         for(var i = 0; i < Colourclasses_names.length; i++){
             classes[i] = sn.find_colourClass(Colourclasses_names[i]);
         }
@@ -51,17 +52,10 @@ public class DataParser {
         sn.add_variable(new Variable(variable_name,sn.find_colourClass(class_name)));
     }
     
-    public void add_place(){
-       
+    public void add_place(String place_name, String ColourClass_name){
+       sn.add_place(new Place(place_name, sn.find_colourClass(ColourClass_name)));
     }
     
-    public void add_transition(){
-        
-    }
-    
-    public void connect_nodes_via_arcs(){
-        
-    }
     
     public void create_Marking(){
         
