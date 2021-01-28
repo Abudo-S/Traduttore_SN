@@ -62,6 +62,65 @@ public class DataParser {
         sn.add_transition(new Transition(transition_name, g));
     }
     
+    //note: Case (normal_arch)-> "from/to" can be a place name or a transiton name
+    //note: Case (inhibitor)-> "from" will be a place name, "to" will be a transition name
+    public void connect_nodes_via_arc(String from, String to, String arc_type, String arc_name) throws NullPointerException{
+        Place p;
+        Transition t;
+        
+        switch(arc_type){
+            
+            case "tarc": 
+                TArc arc = new TArc(arc_name, 0); //lvl 0 will be modified                
+                p = sn.find_place(from);
+                if(p == null){
+                    t = sn.find_transition(from);
+                    p = sn.find_place(to);
+                    t.add_next_Node(arc, p);
+                    sn.update_nodes_via_arc(p, t);
+                }else{ 
+                    t = sn.find_transition(to);
+                    p.add_next_Node(arc, t);
+                    sn.update_nodes_via_arc(p, t);
+                }
+            case "inhibitor":
+                Inhibitor inb = new Inhibitor(arc_name, 0); //lvl 0 will be modified
+                p = sn.find_place(from);
+                t = sn.find_transition(to);
+                p.add_next_Node(inb, t);
+                sn.update_nodes_via_arc(p, t);
+                
+            default:
+                throw new NullPointerException("Arc type isn't found: "+arc_type);
+        }
+    }
+    
+    public void add_arc_guard(){
+        
+    }
+    
+    public void add_arc_muliplicity(){
+        
+    }
+    
+    //HashMap<String, Integer> will save this data <token_name, token_multiplicity>
+    public void add_initial_Marking(String place_name, HashMap<String, Integer> multiplied_marking){
+        HashMap<Token, Integer> place_marking = new HashMap<>();
+        Place p = sn.find_place(place_name);
+        ColourClass place_typeC = sn.find_colourClass(p.get_type());
+        
+        if(place_typeC == null){
+            Domain place_typeD = sn.find_domain(p.get_type());
+        }
+        
+        Token t;
+        for(var i = 0; i < multiplied_marking.size(); i++){
+            
+            //.put(, i)
+        }
+        
+    }
+    
     public SN get_sn(){
         return sn;
     }
