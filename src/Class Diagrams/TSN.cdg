@@ -106,7 +106,10 @@
       </Fields>
       <Constructors/>
       <Methods>
-        <Method name="add_place" returnType="void" visibility="public"/>
+        <Method name="add_place" returnType="void" visibility="public">
+          <Argument type="String" name="place_name"/>
+          <Argument type="String" name="CsolourClass_name"/>
+        </Method>
         <Method name="add_transition" returnType="void" visibility="public"/>
         <Method name="add_colourClass" returnType="void" visibility="public">
           <Argument type="String" name="class_name"/>
@@ -352,35 +355,35 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <IsRelation name="is" source="Place" target="Node"/>
-    <HasRelation name="create3" source="Variable" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="consists_of" source="Marking" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="translate_from" source="SNTranslator" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="create4" source="Place" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="has2" source="SN" target="Transition" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="create5" source="Transition" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="create_via" source="XMLScanner" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="uses_def" source="Guard" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has3" source="SN" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="use_next_previous" source="Node" target="Arc" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="consists_of" source="Guard" target="Predicate" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <IsRelation name="is" source="Transition" target="Node"/>
-    <IsRelation name="is" source="Inhibitor" target="Arc"/>
-    <HasRelation name="assign_currently" source="Place" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="used_to_connect" source="Arc" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="create1" source="ColourClass" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="has#5" source="SN" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has#6" source="SN" target="Marking" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="consists_of" source="Marking" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="has1" source="SN" target="Place" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="may_have" source="Transition" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="Mayhave" source="Arc" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="create2" source="Domain" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="has_colours" source="Domain" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has2" source="SN" target="Transition" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="assign_currently" source="Place" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <IsRelation name="is" source="TArc" target="Arc"/>
-    <HasRelation name="should_have" source="Predicate" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="fills" source="DataParser" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="may_have" source="Predicate" target="ColourClass" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="has4" source="SN" target="Domain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="used_to_mark" source="Token" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="should_have" source="Predicate" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="uses_def" source="Guard" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="use_next_previous" source="Node" target="Arc" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="may_have" source="Transition" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Inhibitor" target="Arc"/>
+    <HasRelation name="fills" source="DataParser" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Transition" target="Node"/>
+    <HasRelation name="create_via" source="XMLScanner" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="may_have" source="Predicate" target="ColourClass" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Place" target="Node"/>
+    <HasRelation name="translate_from" source="SNTranslator" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="create2" source="Domain" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="consists_of" source="Guard" target="Predicate" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="create1" source="ColourClass" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Mayhave" source="Arc" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="create3" source="Variable" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="has4" source="SN" target="Domain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has_colours" source="Domain" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has3" source="SN" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has#6" source="SN" target="Marking" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="create4" source="Place" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="used_to_connect" source="Arc" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="create5" source="Transition" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
