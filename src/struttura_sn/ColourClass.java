@@ -79,6 +79,25 @@ public class ColourClass {
        return null;
    }
    
+   public Token find_token(String token_name){
+
+       for(Token t : this.available_tokens){
+           if(t.get_Token_value().equals(token_name)){
+               return t;
+           }
+       }
+       Token[] subtokens;
+       for(SubColourClass subc : this.subClasses){
+           subtokens = subc.get_tokens();
+           for(Token t : subtokens){
+               if(t.get_Token_value().equals(token_name)){
+                    return t;
+               }
+           }
+       }
+       return null;
+   }
+   
    public boolean is_availableInSubclass(Token t, String subclass_name){
        return this.get_subClassByname(subclass_name).is_available(t);
    }

@@ -2,7 +2,7 @@
 
 <ClassDiagram name="TSN">
   <ClassDiagramComponents>
-    <Class name="Place" package="" visibility="public" xPosition="724.0" yPosition="296.0">
+    <Class name="Place" package="" visibility="public" xPosition="634.0" yPosition="344.0">
       <Fields>
         <Field name="Colour_type" type="ColourClass" visibility="private"/>
         <Field name="domain_type" type="Domain" visibility="private"/>
@@ -75,14 +75,14 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="SNTranslator" package="" visibility="public" xPosition="1087.0" yPosition="875.0">
+    <Class name="SNTranslator" package="" visibility="public" xPosition="1117.0" yPosition="836.0">
       <Fields>
         <Field name="sn" type="SN" visibility="private"/>
       </Fields>
       <Constructors/>
       <Methods/>
     </Class>
-    <Class name="XMLScanner" package="" visibility="public" xPosition="2075.0" yPosition="521.0">
+    <Class name="XMLScanner" package="" visibility="public" xPosition="1212.0" yPosition="8.0">
       <Fields>
         <Field name="xmlFile" type="String" visibility="private"/>
         <Field name="DP" type="DataParser" visibility="private"/>
@@ -100,7 +100,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="DataParser" package="" visibility="public" xPosition="1124.0" yPosition="104.0">
+    <Class name="DataParser" package="" visibility="public" xPosition="1287.0" yPosition="263.0">
       <Fields>
         <Field name="sn" type="SN" visibility="private" isStatic="true"/>
       </Fields>
@@ -142,9 +142,19 @@
           <Argument type="ArrayList&lt;String[]&gt;" name="subclasses_tokens"/>
         </Method>
         <Method name="create_Marking" returnType="void" visibility="public"/>
+        <Method name="add_initial_Marking" returnType="void" visibility="public">
+          <Argument type="String" name="place_name"/>
+          <Argument type="String[]" name="tokens_names"/>
+          <Argument type="int[]" name="multiplicity"/>
+        </Method>
+        <Method name="add_initial_marking" returnType="void" visibility="public">
+          <Argument type="String" name="place_name"/>
+          <Argument type="String[][]" name="tokens_names"/>
+          <Argument type="int[]" name="multiplicity"/>
+        </Method>
       </Methods>
     </Class>
-    <Class name="SN" package="" visibility="public" xPosition="1394.0" yPosition="836.0">
+    <Class name="SN" package="" visibility="public" xPosition="1582.0" yPosition="971.0">
       <Fields>
         <Field name="P" type="ArrayList&lt;Place&gt;" visibility="private" isStatic="true"/>
         <Field name="T" type="ArrayList&lt;Transition&gt;" visibility="private" isStatic="true"/>
@@ -218,7 +228,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="ColourClass" package="" visibility="public" xPosition="1582.0" yPosition="1330.0">
+    <Class name="ColourClass" package="" visibility="public" xPosition="1829.0" yPosition="1407.0">
       <Fields>
         <Field name="ColourClass_name" type="String" visibility="private" isFinal="true"/>
         <Field name="available_tokens" type="Token[]" visibility="private"/>
@@ -247,6 +257,9 @@
           <Argument type="Token" name="t"/>
           <Argument type="String" name="subclass_name"/>
         </Method>
+        <Method name="find_token" returnType="Token" visibility="public">
+          <Argument type="String" name="token_name"/>
+        </Method>
       </Methods>
     </Class>
     <Class name="Variable" package="" visibility="public" xPosition="274.0" yPosition="1112.0">
@@ -263,7 +276,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Domain" package="" visibility="public" xPosition="1846.0" yPosition="875.0">
+    <Class name="Domain" package="" visibility="public" xPosition="2066.0" yPosition="939.0">
       <Fields>
         <Field name="ColourClasses" type="ColourClass[]" visibility="private"/>
         <Field name="name" type="String" visibility="private"/>
@@ -302,7 +315,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Token" package="" visibility="public" xPosition="379.0" yPosition="753.0">
+    <Class name="Token" package="" visibility="public" xPosition="366.0" yPosition="744.0">
       <Fields>
         <Field name="value" type="String" visibility="private"/>
         <Field name="class_type" type="ColourClass" visibility="private"/>
@@ -365,7 +378,7 @@
         <Method name="is_satisfied" returnType="boolean" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="TokenDomain" package="" visibility="public" xPosition="1212.0" yPosition="586.0">
+    <Class name="TokenDomain" package="" visibility="public" xPosition="1359.0" yPosition="710.0">
       <Fields>
         <Field name="domain_type" type="Domain" visibility="private"/>
         <Field name="value" type="Token[]" visibility="private"/>
@@ -383,38 +396,38 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="has4" source="SN" target="Domain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="create3" source="Variable" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="has_type" source="Token" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="used_to_connect" source="Arc" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has_number_of" source="Token" target="TokenDomain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="Transition" target="Node"/>
+    <HasRelation name="should_have" source="Predicate" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="use_next_previous" source="Node" target="Arc" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="TArc" target="Arc"/>
+    <HasRelation name="create_via" source="XMLScanner" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="fills" source="DataParser" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="consists_of" source="Guard" target="Predicate" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has3" source="SN" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="translate_from" source="SNTranslator" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="has#5" source="SN" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="used_to_mark" source="Token" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="Mayhave" source="Arc" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="create4" source="Place" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Place" target="Node"/>
+    <HasRelation name="create2" source="Domain" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="create3" source="Variable" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="has1" source="SN" target="Place" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="has_type" source="Domain" target="TokenDomain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="may_have" source="Transition" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="consists_of" source="Marking" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="may_have" source="Predicate" target="ColourClass" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
     <IsRelation name="is" source="Inhibitor" target="Arc"/>
     <HasRelation name="has#6" source="SN" target="Marking" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="create_via" source="XMLScanner" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="may_have" source="Predicate" target="ColourClass" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="TArc" target="Arc"/>
-    <HasRelation name="has1" source="SN" target="Place" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="consists_of" source="Guard" target="Predicate" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="used_to_connect" source="Arc" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has3" source="SN" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="create5" source="Transition" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="consists_of" source="Marking" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has_type" source="Token" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="assign_currently" source="Place" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="has_colours" source="Domain" target="ColourClass" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="uses_def" source="Guard" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has#5" source="SN" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="use_next_previous" source="Node" target="Arc" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="has_type" source="Domain" target="TokenDomain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="has2" source="SN" target="Transition" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <IsRelation name="is" source="Transition" target="Node"/>
-    <HasRelation name="used_to_mark" source="Token" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="should_have" source="Predicate" target="Variable" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="translate_from" source="SNTranslator" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="create5" source="Transition" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="create1" source="ColourClass" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="assign_currently" source="Place" target="Token" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="create2" source="Domain" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="Place" target="Node"/>
-    <HasRelation name="fills" source="DataParser" target="SN" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="has_number_of" source="Token" target="TokenDomain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="may_have" source="Transition" target="Guard" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="has4" source="SN" target="Domain" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="create4" source="Place" target="DataParser" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>

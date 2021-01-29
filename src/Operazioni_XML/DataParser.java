@@ -57,11 +57,6 @@ public class DataParser {
        sn.add_place(new Place(place_name, sn.find_colourClass(ColourClass_name)));
     }
     
-    public void add_transition(String transition_name, String text_of_guard){
-        Guard g = null; // will have assignment
-        sn.add_transition(new Transition(transition_name, g));
-    }
-    
     //note: Case (normal_arch)-> "from/to" can be a place name or a transiton name
     //note: Case (inhibitor)-> "from" will be a place name, "to" will be a transition name
     public void connect_nodes_via_arc(String from, String to, String arc_type, String arc_name) throws NullPointerException{
@@ -103,22 +98,46 @@ public class DataParser {
         
     }
     
-    //HashMap<String, Integer> will save this data <token_name, token_multiplicity>
-    public void add_initial_Marking(String place_name, HashMap<String, Integer> multiplied_marking){
-        HashMap<Token, Integer> place_marking = new HashMap<>();
-        Place p = sn.find_place(place_name);
-        ColourClass place_typeC = sn.find_colourClass(p.get_type());
-        
-        if(place_typeC == null){
-            Domain place_typeD = sn.find_domain(p.get_type());
-        }
-        
-        Token t;
-        for(var i = 0; i < multiplied_marking.size(); i++){
+    //for coloured/neutral places
+    public void add_initial_Marking(String place_name, String[] tokens_names, int[] multiplicity){
+        try{
+            Place p = sn.find_place(place_name);
+            ColourClass place_typeC = sn.find_colourClass(p.get_type());
+            Token[] tokens = new Token[tokens_names.length];
+
+            for(var i = 0; i< tokens.length; i++){
+                tokens[i] = place_typeC.find_token(tokens_names[i]);
+            }
+
+            Marking m0 = new Marking();
+            m0.mark_place(p, tokens, multiplicity);
+            sn.set_initial_marking(m0);   
             
-            //.put(, i)
+        }catch(Exception e){
+            System.out.println(e + " ,Can't mark " + place_name);
         }
+    }
+    
+    //for domained places
+    public void add_initial_marking(String place_name, String[][] tokens_names, int[] multiplicity){
         
+        try{
+            Place p = sn.find_place(place_name);
+            ColourClass place_typeC = sn.find_colourClass(p.get_type());
+            Token[][] tokens = new Token[tokens_names.length][tokens_names[0].length];
+            
+            for(var i = 0; i< tokens.length; i++){
+                for(var j = 0; j< tokens[i].length; j++){
+                    tokens[i][j] = place_typeC.find_token(tokens_names[i][j]);
+                }
+            }
+            Marking m0 = new Marking();
+            m0.mark_place(p, tokens, multiplicity);
+            sn.set_initial_marking(m0);   
+            
+        }catch(Exception e){
+            System.out.println(e + " ,Can't mark " + place_name);
+        }
     }
     
     public SN get_sn(){

@@ -21,6 +21,10 @@ public class Token {
         this.class_type = type;
     }
     
+    public void set_current_place(Place p){
+        this.current_place = p;
+    }
+    
     public ColourClass get_type(){
         return this.class_type;
     }
