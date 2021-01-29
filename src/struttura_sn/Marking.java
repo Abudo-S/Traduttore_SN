@@ -33,7 +33,7 @@ public class Marking {
         HashMap<Token[], Integer> mark = new HashMap<>();
         
         for(var i=0; i<multiplicity.length;i++ ){
-            mark.put(new Token[i], multiplicity[i]);
+            mark.put(tokens[i], multiplicity[i]);
         }
         this.marking.put(p, mark);
     }

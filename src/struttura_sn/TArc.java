@@ -6,6 +6,7 @@
 package struttura_sn;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -16,9 +17,8 @@ public class TArc extends Arc{
     public TArc(String name, int lvl){
         this.name = name;
         this.level = lvl;
-        this.multiplicity = new ArrayList<>();
+        this.multiplied_arc = new HashMap<>();
         this.guard_classORdomain = new ArrayList<>();
-        this.vars = new ArrayList<>();
     }
     
 }

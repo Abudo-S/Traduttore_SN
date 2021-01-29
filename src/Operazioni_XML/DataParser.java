@@ -20,8 +20,6 @@ public class DataParser {
     public DataParser(SN sn){
         DataParser.sn = sn;
     }
-    //predicate: [(]*([_a-zA-Z]+[_a-zA-Z0-9]*)\s*(<=|>=|<|>|=|!\s*=|\s+in\s+|\s*!\s*in\s+)\s*([_a-zA-Z]+[_a-zA-Z0-9]*)[)]*
-    //Guard: (!)?[(]*\s*[(]*predicate[)]*\s*[)]*(([&]{2}|[|]{2})[(]*\s*[(]*predicate[)]*\s*[)]*)*[)]* 
      
     public void add_colourClass(String class_name, String[] available_tokens){
         sn.add_colourClass(new ColourClass(class_name, available_tokens));
@@ -55,7 +53,7 @@ public class DataParser {
     
     public void add_place(String place_name, String ColourClass_name){
        sn.add_place(new Place(place_name, sn.find_colourClass(ColourClass_name)));
-    }
+    }    
     
     //note: Case (normal_arch)-> "from/to" can be a place name or a transiton name
     //note: Case (inhibitor)-> "from" will be a place name, "to" will be a transition name
@@ -90,7 +88,7 @@ public class DataParser {
         }
     }
     
-    public void add_arc_guard(){
+    public void add_arc_guard(String guard_text){
         
     }
     
@@ -107,6 +105,7 @@ public class DataParser {
 
             for(var i = 0; i< tokens.length; i++){
                 tokens[i] = place_typeC.find_token(tokens_names[i]);
+                tokens[i].set_current_place(p);
             }
 
             Marking m0 = new Marking();
@@ -129,6 +128,7 @@ public class DataParser {
             for(var i = 0; i< tokens.length; i++){
                 for(var j = 0; j< tokens[i].length; j++){
                     tokens[i][j] = place_typeC.find_token(tokens_names[i][j]);
+                    tokens[i][j].set_current_place(p);
                 }
             }
             Marking m0 = new Marking();
@@ -138,6 +138,18 @@ public class DataParser {
         }catch(Exception e){
             System.out.println(e + " ,Can't mark " + place_name);
         }
+    }
+    
+    //Guard: (!)?[(]*\s*[(]*predicate[)]*\s*[)]*(([&]{2}|[|]{2})[(]*\s*[(]*predicate[)]*\s*[)]*)*[)]* 
+    private Guard recognize_guard(String guard_text){
+        Guard g = null;
+        return g;
+    }
+    
+    //predicate: [(]*([_a-zA-Z]+[_a-zA-Z0-9]*)\s*(<=|>=|<|>|=|!\s*=|\s+in\s+|\s*!\s*in\s+)\s*([_a-zA-Z]+[_a-zA-Z0-9]*)[)]*
+    private Predicate recognize_predicate(String predicate_text){
+        Predicate p = null;
+        return p;
     }
     
     public SN get_sn(){
