@@ -55,6 +55,10 @@ public class DataParser {
        sn.add_place(new Place(place_name, sn.find_colourClass(ColourClass_name)));
     }
     
+    public void add_transition(String transition_name, String text_of_guard){
+        sn.add_transition(new Transition(transition_name, this.recognize_guard(text_of_guard)));
+    }
+    
     //note: Case (normal_arch)-> "from/to" can be a place name or a transiton name
     //note: Case (inhibitor)-> "from" will be a place name, "to" will be a transition name
     
