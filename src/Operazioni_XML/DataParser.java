@@ -53,18 +53,56 @@ public class DataParser {
     
     public void add_place(String place_name, String ColourClass_name){
        sn.add_place(new Place(place_name, sn.find_colourClass(ColourClass_name)));
-    }    
+    }
     
     //note: Case (normal_arch)-> "from/to" can be a place name or a transiton name
     //note: Case (inhibitor)-> "from" will be a place name, "to" will be a transition name
-    public void connect_nodes_via_arc(String from, String to, String arc_type, String arc_name) throws NullPointerException{
+    
+    //connect place of colour class arc
+    public void connect_nodes_via_arc(String from, String to, String arc_type, String arc_name,
+                                      String[] variables_names ,int[] multiplicity) throws NullPointerException{
         Place p;
         Transition t;
         
         switch(arc_type){
             
             case "tarc": 
-                TArc arc = new TArc(arc_name, 0); //lvl 0 will be modified                
+                TArc arc = new TArc(arc_name, 0); //lvl 0 will be modified    
+                this.add_arc_muliplicity(arc, variables_names, multiplicity);
+                p = sn.find_place(from);
+                if(p == null){
+                    t = sn.find_transition(from);
+                    p = sn.find_place(to);
+                    t.add_next_Node(arc, p);
+                    sn.update_nodes_via_arc(p, t);
+                }else{ 
+                    t = sn.find_transition(to);
+                    p.add_next_Node(arc, t);
+                    sn.update_nodes_via_arc(p, t);
+                }
+            case "inhibitor":
+                Inhibitor inb = new Inhibitor(arc_name, 0); //lvl 0 will be modified
+                p = sn.find_place(from);
+                t = sn.find_transition(to);
+                p.add_next_Node(inb, t);
+                sn.update_nodes_via_arc(p, t);
+                
+            default:
+                throw new NullPointerException("Arc type isn't found: "+arc_type);
+        }
+    }
+    
+    //connect place domain arc
+    public void connect_nodes_via_arc(String from, String to, String arc_type, String arc_name,
+                                      String[][] variables_names ,int[] multiplicity) throws NullPointerException{
+        Place p;
+        Transition t;
+        
+        switch(arc_type){
+            
+            case "tarc": 
+                TArc arc = new TArc(arc_name, 0); //lvl 0 will be modified    
+                this.add_arc_muliplicity(arc, variables_names, multiplicity);
                 p = sn.find_place(from);
                 if(p == null){
                     t = sn.find_transition(from);
@@ -92,8 +130,24 @@ public class DataParser {
         
     }
     
-    public void add_arc_muliplicity(){
+    private void add_arc_muliplicity(Arc arc, String[] variables_names ,int[] multiplicity){
         
+        for(var i = 0; i< multiplicity.length; i++){
+            arc.add_mult_varOfcolourClass(sn.find_variable(variables_names[i]), multiplicity[i]);
+        }
+    }
+    
+    private void add_arc_muliplicity(Arc arc, String[][] variables_names ,int[] multiplicity){
+        Variable[] vars;
+        
+        for(var i = 0; i< variables_names.length; i++){
+            vars = new Variable[variables_names[0].length];
+            
+            for(var j = 0; j< variables_names[i].length; j++){
+                vars[j] = sn.find_variable(variables_names[i][j]);
+            }
+            arc.add_mult_varsOfdomain(vars, multiplicity[i]);
+        }
     }
     
     //for coloured/neutral places
@@ -118,8 +172,7 @@ public class DataParser {
     }
     
     //for domained places
-    public void add_initial_marking(String place_name, String[][] tokens_names, int[] multiplicity){
-        
+    public void add_initial_marking(String place_name, String[][] tokens_names, int[] multiplicity){  
         try{
             Place p = sn.find_place(place_name);
             ColourClass place_typeC = sn.find_colourClass(p.get_type());
