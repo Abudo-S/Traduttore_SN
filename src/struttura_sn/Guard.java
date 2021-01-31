@@ -16,13 +16,18 @@ public class Guard {
     private ArrayList<Predicate> predicates;
     private ArrayList<String> seperationTypes; //contains: and , or
     private final boolean invert_result;
+    private final Variable[] var_tuple;
     
-    public Guard(boolean not){
+    public Guard(boolean not, Variable[] var_tuple){
         this.predicates = new ArrayList<>();
         this.seperationTypes = new ArrayList<>();
         this.invert_result = not;
+        this.var_tuple = var_tuple;
     }
     
+    public Variable[] get_tuple(){
+        return this.var_tuple;
+    }
     
     public boolean is_satisfied(){
         boolean sat = true;

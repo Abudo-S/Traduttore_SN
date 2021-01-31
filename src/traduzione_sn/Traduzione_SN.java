@@ -23,8 +23,8 @@ public class Traduzione_SN {
          SN sn = new SN();
         //Token[] tokens_Processo = new Token[]{new Token("p1"), new Token("p2"), new Token("p3")}; 
         //Token[] tokens_Risorsa = new Token[]{new Token("r1"), new Token("r2"), new Token("r3")}; 
-        ColourClass c1 = new ColourClass("Processo", new String[]{"p1", "p2", "p3"});
-        ColourClass c2 = new ColourClass("Risorsa", new String[]{"r1", "r2", "r3"});
+        ColourClass c1 = new ColourClass("Processo", new String[]{"p1", "p2", "p3"}, false);
+        ColourClass c2 = new ColourClass("Risorsa", new String[]{"r1", "r2", "r3"}, false);
         //Arrays.stream(tokens_Processo).map(x -> x.set_type(c1));
         sn.add_colourClass(c1);
         sn.add_colourClass(c2);
@@ -44,13 +44,13 @@ public class Traduzione_SN {
         Place p5 = new Place("p5", c2);
         Place p6 = new Place("p6", c1);
         
-        Guard guard = new Guard(false);
+        Guard guard = new Guard(false, null);
         Predicate p = new Predicate(y1, "!=", y2, false);
         guard.add_predicate(p);
         
         Transition t0 = new Transition("t0", guard);
-        Transition t1 = new Transition("t1", new Guard(false));
-        Transition t2 = new Transition("t2", new Guard(false));
+        Transition t1 = new Transition("t1", new Guard(false, null));
+        Transition t2 = new Transition("t2", new Guard(false, null));
         
         Arc arc0 = new TArc("arc0",0);
         arc0.add_mult_varOfcolourClass(x,1);

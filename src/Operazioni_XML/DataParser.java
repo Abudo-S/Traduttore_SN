@@ -7,6 +7,7 @@ package Operazioni_XML;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 import struttura_sn.*;
 
 /**
@@ -21,12 +22,13 @@ public class DataParser {
         DataParser.sn = sn;
     }
      
-    public void add_colourClass(String class_name, String[] available_tokens){
-        sn.add_colourClass(new ColourClass(class_name, available_tokens));
+    public void add_colourClass(String class_name, String[] available_tokens, boolean circular){
+        sn.add_colourClass(new ColourClass(class_name, available_tokens, circular));
     }
     
-    public void add_colourClass(String class_name, String[] available_tokens, String[] subclasses_names, ArrayList<String[]> subclasses_tokens){
-        ColourClass c = new ColourClass(class_name, available_tokens);
+    public void add_colourClass(String class_name, String[] available_tokens, boolean circular,
+    String[] subclasses_names, ArrayList<String[]> subclasses_tokens){
+        ColourClass c = new ColourClass(class_name, available_tokens, circular);
         
         for(var i = 0; i < subclasses_names.length; i++){
             c.add_subclass(c.new SubColourClass(subclasses_names[i], subclasses_tokens.get(i)));
@@ -72,7 +74,6 @@ public class DataParser {
             
             case "tarc": 
                 TArc arc = new TArc(arc_name, 0); //lvl 0 will be modified    
-                this.add_arc_muliplicity(arc, variables_names, multiplicity);
                 p = sn.find_place(from);
                 if(p == null){
                     t = sn.find_transition(from);
@@ -84,6 +85,7 @@ public class DataParser {
                     p.add_next_Node(arc, t);
                     sn.update_nodes_via_arc(p, t);
                 }
+                this.add_arc_muliplicity(arc, variables_names, multiplicity);
             case "inhibitor":
                 Inhibitor inb = new Inhibitor(arc_name, 0); //lvl 0 will be modified
                 p = sn.find_place(from);
@@ -106,7 +108,6 @@ public class DataParser {
             
             case "tarc": 
                 TArc arc = new TArc(arc_name, 0); //lvl 0 will be modified    
-                this.add_arc_muliplicity(arc, variables_names, multiplicity);
                 p = sn.find_place(from);
                 if(p == null){
                     t = sn.find_transition(from);
@@ -118,6 +119,7 @@ public class DataParser {
                     p.add_next_Node(arc, t);
                     sn.update_nodes_via_arc(p, t);
                 }
+                this.add_arc_muliplicity(arc, variables_names, multiplicity);
             case "inhibitor":
                 Inhibitor inb = new Inhibitor(arc_name, 0); //lvl 0 will be modified
                 p = sn.find_place(from);
