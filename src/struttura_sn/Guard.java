@@ -14,19 +14,23 @@ import java.util.ArrayList;
 public class Guard {
     
     private ArrayList<Predicate> predicates;
-    private ArrayList<String> seperationTypes; //contains: and , or
+    private ArrayList<String> separationTypes; //contains: and , or
     private final boolean invert_result;
     private final Variable[] var_tuple;
     
     public Guard(boolean not, Variable[] var_tuple){
         this.predicates = new ArrayList<>();
-        this.seperationTypes = new ArrayList<>();
+        this.separationTypes = new ArrayList<>();
         this.invert_result = not;
         this.var_tuple = var_tuple;
     }
     
     public Variable[] get_tuple(){
         return this.var_tuple;
+    }
+    
+    public boolean has_tuple(){
+        return (var_tuple) == null ? true : false;
     }
     
     public boolean is_satisfied(){
@@ -38,11 +42,11 @@ public class Guard {
         if(this.predicates.size() == 1){
             return this.predicates.get(0).is_satisfied() && this.invert_result;
         }
-        for(var i=0; i<this.seperationTypes.size(); i++){
+        for(var i=0; i<this.separationTypes.size(); i++){
             Predicate p1 = this.predicates.get(i);
             Predicate p2 = this.predicates.get(i+1);
                 
-            if(this.seperationTypes.get(i).equals("and")){ //&&
+            if(this.separationTypes.get(i).equals("and")){ //&&
                 sat = sat && (p1.is_satisfied() && p2.is_satisfied());                
             }else{ //or
                 sat = sat && (p1.is_satisfied() || p2.is_satisfied());
@@ -56,7 +60,15 @@ public class Guard {
     }
     
     public void add_separation(String type){
-        this.seperationTypes.add(type);
+        this.separationTypes.add(type);
+    }
+    
+    public void set_Allpredicates(ArrayList<Predicate> predicates){
+        this.predicates = predicates;
+    }
+    
+    public void set_Allseparations(ArrayList<String> separations){
+        this.separationTypes = separations;
     }
     
 }

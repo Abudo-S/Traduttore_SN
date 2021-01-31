@@ -6,8 +6,6 @@
 package Operazioni_XML;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.regex.Pattern;
 import struttura_sn.*;
 
 /**
@@ -57,93 +55,118 @@ public class DataParser {
        sn.add_place(new Place(place_name, sn.find_colourClass(ColourClass_name)));
     }
     
-    public void add_transition(String transition_name, String text_of_guard){
-        sn.add_transition(new Transition(transition_name, this.recognize_guard(text_of_guard)));
+    public void add_transition(String transition_name){
+        sn.add_transition(new Transition(transition_name, null));
+    }
+    
+    public void add_transition(String transition_name, boolean invert, ArrayList<Predicate> predicates,
+    ArrayList<String> op_seperation){ //with guard that has no variable tuple
+        sn.add_transition(new Transition(transition_name, this.create_guard(invert, predicates, op_seperation, null)));
     }
     
     //note: Case (normal_arch)-> "from/to" can be a place name or a transiton name
     //note: Case (inhibitor)-> "from" will be a place name, "to" will be a transition name
-    
-    //connect place of colour class arc
-    public void connect_nodes_via_arc(String from, String to, String arc_type, String arc_name,
-                                      String[] variables_names ,int[] multiplicity) throws NullPointerException{
+    public void connect_nodes_via_arc(String from, String to, Arc arc) throws NullPointerException{
         Place p;
         Transition t;
         
-        switch(arc_type){
+        
+        switch(arc.getClass().getName()){
             
-            case "tarc": 
-                TArc arc = new TArc(arc_name, 0); //lvl 0 will be modified    
+            case "tarc":   
                 p = sn.find_place(from);
                 if(p == null){
                     t = sn.find_transition(from);
                     p = sn.find_place(to);
-                    t.add_next_Node(arc, p);
+                    t.add_next_Node((TArc) arc, p);
                     sn.update_nodes_via_arc(p, t);
                 }else{ 
                     t = sn.find_transition(to);
-                    p.add_next_Node(arc, t);
+                    p.add_next_Node((TArc) arc, t);
                     sn.update_nodes_via_arc(p, t);
                 }
-                this.add_arc_muliplicity(arc, variables_names, multiplicity);
+                break;
+                
             case "inhibitor":
-                Inhibitor inb = new Inhibitor(arc_name, 0); //lvl 0 will be modified
                 p = sn.find_place(from);
                 t = sn.find_transition(to);
-                p.add_next_Node(inb, t);
+                p.add_next_Node((Inhibitor) arc, t);
                 sn.update_nodes_via_arc(p, t);
+                break;
                 
             default:
-                throw new NullPointerException("Arc type isn't found: "+arc_type);
+                throw new NullPointerException("Arc connecting error: " + from + "," + to);
         }
     }
     
-    //connect place domain arc
-    public void connect_nodes_via_arc(String from, String to, String arc_type, String arc_name,
-                                      String[][] variables_names ,int[] multiplicity) throws NullPointerException{
-        Place p;
-        Transition t;
+    //colour arc
+    public Arc create_arc(String arc_type, String arc_name, String[] variables_names ,int[] multiplicity) throws NullPointerException{
+        Arc arc = null;
         
-        switch(arc_type){
+         switch(arc_type){
             
             case "tarc": 
-                TArc arc = new TArc(arc_name, 0); //lvl 0 will be modified    
-                p = sn.find_place(from);
-                if(p == null){
-                    t = sn.find_transition(from);
-                    p = sn.find_place(to);
-                    t.add_next_Node(arc, p);
-                    sn.update_nodes_via_arc(p, t);
-                }else{ 
-                    t = sn.find_transition(to);
-                    p.add_next_Node(arc, t);
-                    sn.update_nodes_via_arc(p, t);
-                }
-                this.add_arc_muliplicity(arc, variables_names, multiplicity);
-            case "inhibitor":
-                Inhibitor inb = new Inhibitor(arc_name, 0); //lvl 0 will be modified
-                p = sn.find_place(from);
-                t = sn.find_transition(to);
-                p.add_next_Node(inb, t);
-                sn.update_nodes_via_arc(p, t);
+                arc = new TArc(arc_name, 0); //lvl 0 will be modified 
+                arc = (TArc) this.add_arc_muliplicity(arc, variables_names, multiplicity);
+                break;
                 
-            default:
-                throw new NullPointerException("Arc type isn't found: "+arc_type);
-        }
+            case "inhibitor":
+                arc = new Inhibitor(arc_name, 0); //lvl 0 will be modified
+                arc = (Inhibitor) this.add_arc_muliplicity(arc, variables_names, multiplicity);
+                break;  
+         }
+         
+         if(arc == null){
+             throw new NullPointerException("Arc type isn't found: "+arc_type);
+         }
+        return arc;
     }
     
-    public void add_arc_guard(String guard_text){
+    //domain arc
+    public Arc create_arc(String arc_type, String arc_name, String[][] variables_names ,int[] multiplicity) throws NullPointerException{
+        Arc arc = null;
         
+         switch(arc_type){
+            
+            case "tarc": 
+                arc = new TArc(arc_name, 0); //lvl 0 will be modified 
+                arc = (TArc) this.add_arc_muliplicity(arc, variables_names, multiplicity);
+                break;
+                
+            case "inhibitor":
+                arc = new Inhibitor(arc_name, 0); //lvl 0 will be modified
+                arc = (Inhibitor) this.add_arc_muliplicity(arc, variables_names, multiplicity);
+                break;  
+         }
+         
+         if(arc == null){
+             throw new NullPointerException("Arc type isn't found: "+arc_type);
+         }
+        return arc;
     }
     
-    private void add_arc_muliplicity(Arc arc, String[] variables_names ,int[] multiplicity){
+    public Arc add_arc_guard(Arc arc, boolean invert, ArrayList<Predicate> predicates, ArrayList<String> op_seperation, Variable[] tuple){
+        arc.add_guard_colourClassORdomain(this.create_guard(invert, predicates, op_seperation, tuple));
+        
+        return arc;
+    }
+    
+    private Guard create_guard(boolean invert, ArrayList<Predicate> predicates, ArrayList<String> op_seperation, Variable[] tuple){
+        Guard g = new Guard(invert, tuple);
+              g.set_Allpredicates(predicates);
+              g.set_Allseparations(op_seperation);
+        return g;
+    }
+    
+    private Arc add_arc_muliplicity(Arc arc, String[] variables_names ,int[] multiplicity){
         
         for(var i = 0; i< multiplicity.length; i++){
             arc.add_mult_varOfcolourClass(sn.find_variable(variables_names[i]), multiplicity[i]);
         }
+        return arc;
     }
     
-    private void add_arc_muliplicity(Arc arc, String[][] variables_names ,int[] multiplicity){
+    private Arc add_arc_muliplicity(Arc arc, String[][] variables_names ,int[] multiplicity){
         Variable[] vars;
         
         for(var i = 0; i< variables_names.length; i++){
@@ -154,6 +177,7 @@ public class DataParser {
             }
             arc.add_mult_varsOfdomain(vars, multiplicity[i]);
         }
+        return arc;
     }
     
     //for coloured/neutral places
@@ -199,17 +223,6 @@ public class DataParser {
         }
     }
     
-    //Guard: (!)?[(]*\s*[(]*predicate[)]*\s*[)]*(([&]{2}|[|]{2})[(]*\s*[(]*predicate[)]*\s*[)]*)*[)]* 
-    private Guard recognize_guard(String guard_text){
-        Guard g = null;
-        return g;
-    }
-    
-    //predicate: [(]*([_a-zA-Z]+[_a-zA-Z0-9]*)\s*(<=|>=|<|>|=|!\s*=|\s+in\s+|\s*!\s*in\s+)\s*([_a-zA-Z]+[_a-zA-Z0-9]*)[)]*
-    private Predicate recognize_predicate(String predicate_text){
-        Predicate p = null;
-        return p;
-    }
     
     public SN get_sn(){
         return sn;

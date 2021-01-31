@@ -45,34 +45,42 @@ public class Predicate {
                 if(v2_com == 1){
                     sat = true;
                 }
+                break;
             case "<":
                 if(v2_com == -1){
                     sat = true;
                 }
+                break;
             case ">=":
                 if(v2_com == 1 || v2_com == 0){
                     sat = true;
                 }
+                break;
             case "<=":
                 if(v2_com == -1 || v2_com == 0){
                     sat = true;
                 }
+                break;
             case "=":
                 if(v2_com == 0){
                     sat = true;
                 }
+                break;
             case "!=":
                 if(v2_com != 0 ){
                     sat = true;
                 }
+                break;
             case "in":
                 if(this.c.is_available(this.v1.get_current_assignment())){
                     sat = true;
-                }     
+                }
+                break;
             case "!in":
                 if(!this.c.is_available(this.v1.get_current_assignment())){
                     sat = true;
                 }
+                break;
         }
         
         return sat && this.invert_result;
